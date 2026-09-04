@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where we move next · a decision document for Sebi and Anna</title>
+<style>
+  :root{
+    --paper:#ffffff;
+    --panel:#f1f4f7;
+    --ink:#16232e;
+    --ink-soft:#55636f;
+    --rule:#dde3e9;
+    --accent:#14566b;
+    --accent-soft:#e4eef1;
+    --yes:#1a6b4a;
+    --yes-bg:#e8f2ec;
+    --maybe:#8a5a12;
+    --maybe-bg:#f7efe0;
+    --no:#98241c;
+    --no-bg:#f6e6e4;
+    --serif: "Iowan Old Style", "Source Serif 4", Palatino, Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.55;
+  }
+  .page{max-width:1100px;margin:0 auto;padding:0 22px 96px}
+
+  /* ---------- opening verdict ---------- */
+  .masthead{padding:56px 0 8px;border-bottom:1px solid var(--rule)}
+  .masthead h1{
+    font-family:var(--serif);font-weight:600;font-size:clamp(30px,5.2vw,52px);
+    line-height:1.08;letter-spacing:-.015em;margin:0 0 18px;max-width:22ch;
+  }
+  .who{font-size:14.5px;color:var(--ink-soft);max-width:74ch;margin:0 0 6px}
+  .who strong{color:var(--ink);font-weight:600}
+  .stamp{font-size:13px;color:var(--ink-soft);padding:14px 0 26px}
+
+  .verdict{padding:34px 0 10px}
+  .verdict h2{font-family:var(--serif);font-size:24px;font-weight:600;margin:0 0 4px}
+  .shortlist{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:22px 0 10px}
+  .pick{border-top:3px solid var(--accent);padding:14px 0 0}
+  .pick .city{font-family:var(--serif);font-size:22px;font-weight:600;margin:0 0 2px}
+  .pick .role{font-size:13px;color:var(--accent);font-weight:600;margin:0 0 8px}
+  .pick p{margin:0;font-size:14px;color:var(--ink-soft)}
+  .out{background:var(--no-bg);border-left:3px solid var(--no);padding:14px 18px;margin:26px 0 0;font-size:14.5px}
+  .out b{color:var(--no)}
+
+  /* ---------- structure ---------- */
+  h2.sec{
+    font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:600;
+    margin:64px 0 6px;padding-top:26px;border-top:1px solid var(--rule);letter-spacing:-.01em;
+  }
+  h2.sec .n{color:var(--accent);font-size:.6em;vertical-align:.35em;margin-right:.5em;font-family:var(--sans);font-weight:700}
+  h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:34px 0 6px}
+  h4{font-size:14px;font-weight:700;color:var(--accent);margin:20px 0 4px}
+  p{max-width:78ch}
+  p.lead{font-size:17px;color:var(--ink-soft);max-width:70ch;margin:2px 0 18px}
+  ul{padding-left:20px}
+  li{margin:7px 0;max-width:76ch}
+
+  /* ---------- tables ---------- */
+  .scroll{overflow-x:auto;margin:18px 0;border:1px solid var(--rule);border-radius:4px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:620px}
+  th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+  th{background:var(--panel);font-weight:600;font-size:12.5px;color:var(--ink);white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.lead-row td{background:var(--yes-bg)}
+  td.num{white-space:nowrap}
+  caption{caption-side:top;text-align:left;padding:10px 12px;font-size:12.5px;color:var(--ink-soft);background:#fff;border-bottom:1px solid var(--rule)}
+
+  /* ---------- semantic marks (information, not decoration) ---------- */
+  .yes{color:var(--yes);font-weight:600}
+  .maybe{color:var(--maybe);font-weight:600}
+  .no{color:var(--no);font-weight:600}
+  .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap}
+  .tag.y{background:var(--yes-bg);color:var(--yes)}
+  .tag.m{background:var(--maybe-bg);color:var(--maybe)}
+  .tag.n{background:var(--no-bg);color:var(--no)}
+
+  /* ---------- city blocks ---------- */
+  .cities{display:grid;grid-template-columns:1fr 1fr;gap:26px 34px;margin-top:14px}
+  .city-card{border-top:2px solid var(--rule);padding-top:12px}
+  .city-card.first{border-top-color:var(--accent)}
+  .city-card h3{margin:0 0 8px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+  .city-card ul{padding-left:18px;margin:0}
+  .city-card li{font-size:14px;margin:6px 0}
+
+  /* ---------- notes and sources ---------- */
+  .src{font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.45}
+  .src a{color:var(--accent)}
+  a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .aside{background:var(--panel);padding:16px 20px;margin:20px 0;font-size:14.5px;border-radius:4px}
+  .aside p{margin:0 0 8px;max-width:none}
+  .aside p:last-child{margin:0}
+  .legal{background:var(--no-bg);border-left:3px solid var(--no);padding:16px 20px;margin:20px 0;font-size:14.5px}
+  .gaps{background:var(--maybe-bg);border-left:3px solid var(--maybe);padding:16px 20px;margin:20px 0;font-size:14.5px}
+  .method{font-size:13.5px;color:var(--ink-soft);border-left:2px solid var(--rule);padding-left:16px;margin:18px 0}
+
+  /* wide master board */
+  .board table{font-size:12px;min-width:1180px}
+  .board th,.board td{padding:7px 9px}
+  .board td:first-child,.board th:first-child{position:sticky;left:0;background:#fff;border-right:1px solid var(--rule);font-weight:600;min-width:132px}
+  .board th:first-child{background:var(--panel)}
+  .board tr.country td{background:var(--panel);font-family:var(--serif);font-size:14px;font-weight:600}
+  .board tr.country td:first-child{background:var(--panel)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12.5px;color:var(--ink-soft);margin:10px 0 0}
+  .legend span b{color:var(--ink)}
+  .thin{color:var(--ink-soft)}
+  footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-soft)}
+
+  @media (max-width:820px){
+    .shortlist{grid-template-columns:1fr;gap:22px}
+    .cities{grid-template-columns:1fr}
+    .masthead{padding-top:36px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  @media print{body{font-size:11pt}.scroll{overflow:visible;border:none}table{min-width:0}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="masthead">
+  <h1>Where we move next, and how we should actually decide it</h1>
+  <p class="who"><strong>Sebi:</strong> Romanian citizen, so EU free movement already applies. ML and AI engineer with infrastructure, security and backend background. Floor of EUR 3,500 per month. Applying for Spanish citizenship.</p>
+  <p class="who"><strong>Anna:</strong> MSc Society, Sustainability &amp; Planning (Groningen). Impact assessment, ESG and social consulting. ES, CA, EN, FR. Currently in Manchester. Willing to start with an internship if the work is something she wants.</p>
+  <p class="who"><strong>Runway:</strong> about EUR 35,000 saved between us.</p>
+  <p class="stamp">17 cities assessed. 4 September 2026.</p>
+</header>
+
+<section class="board">
+  <h2 class="sec" style="border-top:none;margin-top:44px;padding-top:0"><span class="n">0</span>The board</h2>
+  <p class="lead">Your own sheet, in English, with every location merged into one order, a paired column for Anna wherever there was one for Sebi, and the source for every row at the end of it. Read this and decide for yourselves. The recommendation below is only one reading of it.</p>
+
+  <div class="aside">
+    <p><strong>What changed from your sheet.</strong></p>
+    <p><strong>Anna now has a column for every one of Sebi's.</strong> Salary band, market depth, language gate. Her salary was the hardest to source and the gaps are marked honestly rather than filled with guesses. Three countries have real numbers: the Netherlands, Spain and Germany. The rest need a research pass.</p>
+    <p><strong>Right to work added,</strong> because it is the only criterion that vetoes a city outright no matter how well it scores. It removes Liechtenstein and mostly Andorra.</p>
+    <p><strong>Move-in friction and upfront cost added.</strong> You found this yourselves in three places, six months upfront in Copenhagen, guarantors in France, the Swedish queue. It belongs as a column because it is what actually stops a move, and it comes out of the same EUR 35,000 as Anna's runway.</p>
+    <p><strong>Runway added,</strong> turning the rent percentage into the number that matters: how many months Anna can work unpaid there.</p>
+    <p><strong>Language split by field,</strong> because the gate is completely different for the two of you, and that asymmetry is the strongest finding in this document.</p>
+    <p><strong>Time to first paid role, social openness, suicide rate, citizenship and dual nationality added.</strong> The first three because the tied mover carries the cost of a slow market and a closed social scene. The last because at ten years versus five, and dual allowed versus not, the choice stops being about a job and becomes about where you can stay.</p>
+    <p><strong>Dropped:</strong> the net-floor column, since the gross figure is already there, and the PhD column.</p>
+  </div>
+
+  <h3>A. Work, pay and housing</h3>
+  <div class="scroll">
+  <table>
+    <caption>Salary figures marked as yours are reproduced as you wrote them. Where my research disagrees, the corrected figure is in section 5, and Geneva rent is the main case. Anna's salary bands are entry level for her field, not averages across all experience.</caption>
+    <thead>
+      <tr>
+        <th>Location</th>
+        <th>Sebi, ML gross</th>
+        <th>Sebi, market depth</th>
+        <th>Anna, entry gross</th>
+        <th>Anna, market and route</th>
+        <th>Anna, time to paid role</th>
+        <th>Studio for two</th>
+        <th>Rent as % income</th>
+        <th>Runway on EUR 35k</th>
+        <th>Sources</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="country"><td colspan="10">Switzerland</td></tr>
+      <tr>
+        <td>Geneva</td>
+        <td>CHF 95k to 165k <span class="thin">(yours)</span>, median CHF 115k</td>
+        <td class="maybe">Narrow, finance and a few research bodies</td>
+        <td class="maybe">Entry CHF 62,715 in the private market, Geneva average CHF 93,244. But UN and NGO entry here is normally an unpaid or stipend internship, so the survey figure is not what she would first earn.</td>
+        <td>UN and NGO ecosystem, UNOG, UNHCR, ICRC, WHO, ITC, plus Covalence SA in Carouge</td>
+        <td class="maybe">12 to 24 months</td>
+        <td>CHF 1,300 to 1,800</td><td class="num">20 to 28%</td><td class="num maybe">6 to 10 mo</td>
+        <td class="src">Your sheet, <a href="https://swissdevjobs.ch/salaries/Machine-Learning/all/all">SwissDevJobs</a>, <a href="https://www.glassdoor.com/Salaries/geneva-switzerland-machine-learning-engineer-salary-SRCH_IL.0,18_IM1141_KO19,44.htm">Glassdoor</a>, <a href="https://investropa.com/blogs/news/geneva-rents">Investropa with OCSTAT</a>. Anna pay: <a href="https://www.salaryexpert.com/salary/job/sustainability-consultant/switzerland">ERI Switzerland</a>, <a href="https://www.erieri.com/salary/job/sustainability-consultant/switzerland">ERI Geneva</a></td>
+      </tr>
+      <tr>
+        <td>Zurich</td>
+        <td>CHF 105k to 165k <span class="thin">(yours)</span></td>
+        <td class="yes">Deepest in Switzerland, ETH plus Google and finance</td>
+        <td class="yes">Entry CHF 62,715, Zurich average CHF 93,857 to 97,144, senior CHF 111,301.</td>
+        <td class="maybe">Planning tied to cantonal law, German near essential. ESG possible but very competitive. <span class="thin">(yours)</span></td>
+        <td class="maybe">Long without German</td>
+        <td>EUR 1,400 to 2,100</td><td class="num yes">15%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.erieri.com/salary/job/sustainability-consultant/switzerland/zurich">ERI Zurich</a>, <a href="https://www.salaryexpert.com/salary/job/sustainability-consultant/switzerland">ERI Switzerland</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="10">Spain</td></tr>
+      <tr>
+        <td>Barcelona</td>
+        <td>EUR 40k to 55k</td>
+        <td class="yes">Real ecosystem, startups plus corporate hubs</td>
+        <td class="no">EUR 22k to 30k. Junior consultant in Spain starts around EUR 27k and the national consultant median is also about EUR 27k.</td>
+        <td class="yes">Wide open on language. Big Four, boutiques, corporates. Internships common.</td>
+        <td class="yes">3 to 9 months</td>
+        <td>EUR 1,100 to 1,600</td><td class="num">35 to 48%</td><td class="num">15 to 20 mo</td>
+        <td class="src"><a href="https://www.levels.fyi/t/software-engineer/title/machine-learning-engineer/locations/spain">Levels.fyi</a>, <a href="https://www.michaelpage.es/sites/michaelpage.es/files/2022-01/ES_Estudios_de_Remuneracion_Sostenibilidad_2022.pdf">Michael Page sustainability pay study</a>, <a href="https://asest.es/story/cuanto-gana-un-consultor-empresarial/">Spanish consultant pay data on INE and Jobted</a>, <a href="https://investropa.com/blogs/news/barcelona-rents">Investropa with Idealista and Fotocasa</a></td>
+      </tr>
+      <tr>
+        <td>Madrid</td>
+        <td>EUR 50k <span class="thin">(yours)</span></td>
+        <td class="yes">Largest in Spain</td>
+        <td class="no">EUR 22k to 30k, same national bands</td>
+        <td class="yes">Growing market <span class="thin">(yours)</span>. PwC, Metyis, EY, McKinsey and BCG lead sustainability consulting in Spain. Castilian only.</td>
+        <td class="yes">Likely 3 to 9 months</td>
+        <td>EUR 900 to 1,200</td><td class="num">30%</td><td>Not modelled</td>
+        <td class="src">Your sheet, <a href="https://www.michaelpage.es/sites/michaelpage.es/files/2022-01/ES_Estudios_de_Remuneracion_Sostenibilidad_2022.pdf">Michael Page</a>, <a href="https://www.elindependiente.com/?p=2599826">Instituto Coordenadas ranking</a></td>
+      </tr>
+      <tr>
+        <td>Basque Country</td>
+        <td>Not researched</td>
+        <td class="maybe">Small, industrial AI</td>
+        <td class="no">EUR 22k to 30k, national bands</td>
+        <td class="no">Euskera for planning, and required in the public sector. Market described as complicated. <span class="thin">(yours)</span></td>
+        <td class="no">Long, language gated</td>
+        <td>EUR 1,100 to 1,300</td><td class="num">33%</td><td>Not modelled</td>
+        <td class="src">Your sheet, <a href="https://www.michaelpage.es/sites/michaelpage.es/files/2022-01/ES_Estudios_de_Remuneracion_Sostenibilidad_2022.pdf">Michael Page</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="10">France</td></tr>
+      <tr>
+        <td>Paris</td>
+        <td>EUR 50k to 90k <span class="thin">(yours)</span></td>
+        <td class="yes">Deep, Mistral and research labs plus corporates</td>
+        <td class="yes">EUR 40k to 45k. Michael Page puts a junior CSR consultant at about EUR 40k, Glassdoor gives EUR 42,500 for a junior sustainability consultant, and the large Paris firms start juniors at EUR 45k. All-levels range EUR 39,300 to 57,000.</td>
+        <td class="maybe">French qualification preferred for planning. Stakeholder work is a growth area. <span class="thin">(yours)</span> Anna's French is the asset.</td>
+        <td class="maybe">Moderate</td>
+        <td>EUR 1,000 to 1,300</td><td class="num">30%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.michaelpage.fr/advice/fiches-m%C3%A9tiers/les-m%C3%A9tiers-de-la-rse/fiche-m%C3%A9tier-consultant-rse-d%C3%A9veloppement-durable">Michael Page France</a>, <a href="https://www.glassdoor.fr/Salaires/consultant-junior-en-d%C3%A9veloppement-durable-salaire-SRCH_KO0,42.htm">Glassdoor junior</a>, <a href="https://www.glassdoor.fr/Salaires/consultant-rse-developpement-durable-salaire-SRCH_KO0,36.htm">Glassdoor all levels</a></td>
+      </tr>
+      <tr>
+        <td>Lyon</td>
+        <td>Below Paris <span class="thin">(yours)</span></td>
+        <td class="maybe">Moderate</td>
+        <td class="maybe">Below Paris. National junior band about EUR 40k, ESG entry EUR 30k to 40k.</td>
+        <td class="maybe">As Paris, smaller market</td>
+        <td class="maybe">Moderate</td>
+        <td>EUR 600 to 700</td><td class="num yes">17%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.michaelpage.fr/advice/fiches-m%C3%A9tiers/les-m%C3%A9tiers-de-la-rse/fiche-m%C3%A9tier-consultant-rse-d%C3%A9veloppement-durable">Michael Page France</a></td>
+      </tr>
+      <tr>
+        <td>Strasbourg</td>
+        <td>Below Paris <span class="thin">(yours)</span></td>
+        <td class="maybe">Thin</td>
+        <td class="maybe">Below Paris, national junior band about EUR 40k.</td>
+        <td class="maybe">EU institutions and Council of Europe. French plus some German.</td>
+        <td class="maybe">Moderate</td>
+        <td>EUR 550 to 650</td><td class="num yes">15%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.michaelpage.fr/advice/fiches-m%C3%A9tiers/les-m%C3%A9tiers-de-la-rse/fiche-m%C3%A9tier-consultant-rse-d%C3%A9veloppement-durable">Michael Page France</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="10">Netherlands</td></tr>
+      <tr>
+        <td>Amsterdam</td>
+        <td>EUR 80k to 101k, entry EUR 60k to 74k</td>
+        <td class="yes">Deep. Booking, Adyen, TomTom, Qualcomm, ABN AMRO</td>
+        <td class="maybe">EUR 30k to 45k. Entry-level consultant median total comp EUR 41,624. Junior consultant employer averages: HASKONING EUR 37,200, Deloitte EUR 39,567, EY EUR 28,800. Sustainability advisor postings EUR 3,500 to 4,750 a month.</td>
+        <td class="yes">Thickest English-workable ESG market here. Consultancies, funds, NGOs.</td>
+        <td class="yes">3 to 9 months</td>
+        <td>EUR 1,700 to 2,400</td><td class="num">25 to 32%</td><td class="num">10 to 16 mo</td>
+        <td class="src"><a href="https://www.levels.fyi/t/software-engineer/title/machine-learning-engineer/locations/greater-amsterdam-area">Levels.fyi ML</a>, <a href="https://www.levels.fyi/en-gb/t/management-consultant/levels/entry-level/locations/amsterdam-nld">Levels.fyi entry consultant</a>, <a href="https://nl.indeed.com/salaries/Junior-Consultant-%28m/v%29-Salaries">Indeed NL junior consultant</a>, <a href="https://www.nlcompass.com/guides/housing-crisis-netherlands-expats">NLCompass on the shortage</a></td>
+      </tr>
+      <tr>
+        <td>Utrecht</td>
+        <td>EUR 90k to 100k</td>
+        <td class="yes">Real tech market</td>
+        <td class="maybe">EUR 30k to 45k, national bands</td>
+        <td class="yes">Consultancies, government bodies, universities. English works.</td>
+        <td class="yes">3 to 9 months</td>
+        <td>EUR 1,300 to 1,700</td><td class="num">20 to 28%</td><td class="num yes">14 to 22 mo</td>
+        <td class="src"><a href="https://www.levels.fyi/t/software-engineer/title/machine-learning-engineer/locations/netherlands">Levels.fyi</a>, <a href="https://renthunter.nl/average-rent-prices-in-major-dutch-cities-a-2025-update/">RentHunter with Pararius and CBS</a>, <a href="https://nl.indeed.com/salaries/Junior-Consultant-%28m/v%29-Salaries">Indeed NL</a></td>
+      </tr>
+      <tr>
+        <td>Rotterdam</td>
+        <td>EUR 90k to 100k</td>
+        <td class="yes">Real tech market</td>
+        <td class="maybe">EUR 30k to 45k. Indeed puts Rotterdam junior consultants at about EUR 4,234 a month.</td>
+        <td class="yes">Port sustainability, Erasmus. English works.</td>
+        <td class="yes">3 to 9 months</td>
+        <td>EUR 1,200 to 1,600</td><td class="num">20 to 28%</td><td class="num yes">14 to 22 mo</td>
+        <td class="src"><a href="https://www.levels.fyi/t/software-engineer/title/machine-learning-engineer/locations/netherlands">Levels.fyi</a>, <a href="https://nl.indeed.com/salaries/Junior-Consultant-%28m/v%29-Salaries">Indeed NL</a>, <a href="https://renthunter.nl/average-rent-prices-in-major-dutch-cities-a-2025-update/">RentHunter</a></td>
+      </tr>
+      <tr>
+        <td>Groningen</td>
+        <td>Thinner, remote leaning</td>
+        <td class="maybe">Thin locally</td>
+        <td class="maybe">EUR 30k to 45k, national bands</td>
+        <td class="maybe">Her alma mater, so network plus energy transition and planning research, but a small paid market.</td>
+        <td class="maybe">Moderate</td>
+        <td>EUR 900 to 1,400</td><td class="num">20 to 28%</td><td class="num yes">14 to 22 mo</td>
+        <td class="src"><a href="https://renthunter.nl/average-rent-prices-in-major-dutch-cities-a-2025-update/">RentHunter</a>, <a href="https://nl.indeed.com/salaries/Junior-Consultant-%28m/v%29-Salaries">Indeed NL</a></td>
+      </tr>
+      <tr>
+        <td>Maastricht</td>
+        <td>Thinner, remote leaning</td>
+        <td class="maybe">Thin locally</td>
+        <td class="maybe">EUR 30k to 45k, national bands</td>
+        <td class="maybe">Euregio and EU-institution adjacent. Small.</td>
+        <td class="maybe">Moderate</td>
+        <td>EUR 900 to 1,400</td><td class="num">20 to 28%</td><td class="num yes">14 to 22 mo</td>
+        <td class="src"><a href="https://renthunter.nl/average-rent-prices-in-major-dutch-cities-a-2025-update/">RentHunter</a>, <a href="https://nl.indeed.com/salaries/Junior-Consultant-%28m/v%29-Salaries">Indeed NL</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="10">Germany</td></tr>
+      <tr>
+        <td>Berlin</td>
+        <td>EUR 55k to 68k entry, EUR 95k average for AI and ML</td>
+        <td class="yes">Deepest on the list, startups, scale-ups, research</td>
+        <td class="maybe">EUR 40k to 55k. Berlin consultants average EUR 55,900 in a range of EUR 46,800 to 65,500. A live Berlin sustainability consultant role pays EUR 50k to 60k but requires German at C2.</td>
+        <td class="maybe">Present in English inside international NGOs and startups. German widens it a lot.</td>
+        <td class="maybe">6 to 15 months</td>
+        <td>EUR 1,100 to 1,500</td><td class="num yes">18 to 24%</td><td class="num">15 to 18 mo</td>
+        <td class="src"><a href="https://ravio.com/blog/berlin-salary-trends-2026">Ravio and Handpicked Berlin 2026</a>, <a href="https://www.stepstone.de/gehalt/Consultant/city/Berlin.html">StepStone Berlin consultants</a>, <a href="https://www.arbeitnow.com/jobs/companies/global-changer/consultant-sustainability-services-at-climate-tech-start-up-100-remote-moglich-berlin-321391">live Berlin sustainability consultant posting</a>, <a href="https://realting.com/news/rent-prices-in-germany-cities">Realting with GREIX</a></td>
+      </tr>
+      <tr>
+        <td>Munich</td>
+        <td>EUR 68k entry, EUR 95k average</td>
+        <td class="yes">Corporate and industrial AI, BMW, Siemens, Google</td>
+        <td class="maybe">EUR 40k to 55k. German consultants average EUR 53,500 nationally, Bavaria EUR 57,000.</td>
+        <td class="no">Corporate ESG, but German effectively required.</td>
+        <td class="no">Long without German</td>
+        <td>EUR 1,500 to 2,100</td><td class="num">22 to 28%</td><td class="num">10 to 14 mo</td>
+        <td class="src"><a href="https://www.turingcollege.com/blog/ai-engineer-salary-in-germany-2026">Turing College on Levels.fyi, Glassdoor and ERI</a>, <a href="https://www.stepstone.de/gehalt/Consultant.html">StepStone</a>, <a href="https://realting.com/news/rent-prices-in-germany-cities">Realting</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="10">Austria</td></tr>
+      <tr>
+        <td>Vienna</td>
+        <td>EUR 80k <span class="thin">(yours)</span></td>
+        <td class="maybe">Moderate</td>
+        <td class="maybe">Not sourced directly. The closest proxy is the German consultant band of EUR 40k to 55k, with Austria typically a little below Bavaria.</td>
+        <td class="no">German for planning and stakeholder work. Market oriented to German-speaking and Nordic clients. <span class="thin">(yours)</span></td>
+        <td class="no">Long without German</td>
+        <td>EUR 1,200 to 1,400</td><td class="num">32%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.stepstone.de/gehalt/Consultant.html">StepStone, proxy only</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="10">Nordics</td></tr>
+      <tr>
+        <td>Stockholm</td>
+        <td>EUR 65k <span class="thin">(yours)</span></td>
+        <td class="yes">Strong, Spotify, Klarna, King, research</td>
+        <td class="maybe">SEK 271k to 495k with a median of SEK 414,857, so roughly EUR 24k to 43k, median near EUR 36k. ERI puts a sustainability specialist at SEK 472,010.</td>
+        <td class="maybe">Municipal planning in Swedish, but corporate sustainability is a hub and works in English. <span class="thin">(yours)</span></td>
+        <td class="maybe">Moderate in ESG, long in planning</td>
+        <td>EUR 1,100 to 1,500</td><td class="num">35%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.payscale.com/research/SE/Job=Sustainability_Consultant/Salary">Payscale Sweden</a>, <a href="https://www.erieri.com/salary/job/sustainability-specialist/sweden">ERI Sweden</a></td>
+      </tr>
+      <tr>
+        <td>Gothenburg</td>
+        <td>Below Stockholm</td>
+        <td class="maybe">Automotive AI, Volvo, Zenseact</td>
+        <td class="maybe">Below Stockholm. National median SEK 414,857, about EUR 36k.</td>
+        <td class="maybe">As Stockholm, smaller</td>
+        <td class="maybe">Moderate</td>
+        <td>EUR 800 to 1,100</td><td class="num">25%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.payscale.com/research/SE/Job=Sustainability_Consultant/Salary">Payscale Sweden</a></td>
+      </tr>
+      <tr>
+        <td>Helsinki</td>
+        <td>EUR 60k <span class="thin">(yours)</span></td>
+        <td class="maybe">Moderate, Nokia, games, research</td>
+        <td class="yes">Entry EUR 38,713, national average EUR 55,411, senior EUR 68,705.</td>
+        <td class="maybe">Planning usually requires Finnish. ESG has some demand in English. <span class="thin">(yours)</span></td>
+        <td class="maybe">Moderate in ESG</td>
+        <td>EUR 900 to 1,100</td><td class="num yes">25%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.salaryexpert.com/salary/job/sustainability-consultant/finland">ERI Finland</a></td>
+      </tr>
+      <tr>
+        <td>Copenhagen</td>
+        <td>EUR 85k <span class="thin">(yours)</span></td>
+        <td class="yes">Strong, Novo Nordisk, Maersk, Zealand</td>
+        <td class="yes">Entry DKK 339,886, about EUR 45.5k. Copenhagen average DKK 486,034, senior DKK 603,199. A live Copenhagen ESG analyst role at a software startup pays EUR 1,900 a month, so the spread is wide.</td>
+        <td class="yes">ESG open in English and Denmark leads European green transition. Danish for planning and stakeholder work. <span class="thin">(yours)</span></td>
+        <td class="yes">Good in ESG</td>
+        <td>EUR 1,300 to 1,800</td><td class="num no">40%, highest</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.salaryexpert.com/salary/job/sustainability-consultant/denmark/copenhagen">ERI Copenhagen</a>, <a href="https://illuminem.com/illuminemvoices/60-juniorlevel-sustainability-jobs-in-europe-you-shouldnt-miss-in-october-2025">live listings</a></td>
+      </tr>
+      <tr>
+        <td>Aarhus</td>
+        <td>Below Copenhagen</td>
+        <td class="maybe">University-led, smaller</td>
+        <td class="yes">Below Copenhagen. Danish entry DKK 339,886, about EUR 45.5k.</td>
+        <td class="yes">As Copenhagen, smaller</td>
+        <td class="yes">Good in ESG</td>
+        <td>EUR 900 to 1,100</td><td class="num">25%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.salaryexpert.com/salary/job/sustainability-consultant/denmark/copenhagen">ERI Copenhagen</a>, <a href="https://www.erieri.com/salary/job/environmental-consultant/denmark">ERI Denmark</a></td>
+      </tr>
+      <tr>
+        <td>Oslo</td>
+        <td>EUR 67k to 92k</td>
+        <td class="maybe">Moderate, energy and shipping tech</td>
+        <td class="yes">Entry NOK 487,913, about EUR 42k. Oslo average NOK 697,101, senior NOK 792,598.</td>
+        <td class="maybe">Energy transition, shipping, funds. English widely used, Norwegian helps.</td>
+        <td class="maybe">Moderate to long</td>
+        <td>EUR 1,300 to 1,550</td><td class="num">20 to 26%</td><td class="num">12 to 16 mo</td>
+        <td class="src"><a href="https://www.levels.fyi/t/software-engineer/locations/oslo-nor">Levels.fyi</a>, <a href="https://www.salaryexpert.com/salary/job/machine-learning-engineer/norway/oslo">ERI</a>. Anna pay: <a href="https://www.salaryexpert.com/salary/job/consultant-sustainability/norway/oslo">ERI Oslo</a></td>
+      </tr>
+      <tr>
+        <td>Trondheim</td>
+        <td>Not researched</td><td class="maybe">NTNU research cluster</td><td class="maybe">Norwegian entry NOK 487,913 nationally. Smaller cities run about 8% below Oslo.</td>
+        <td>Not researched</td><td>Not researched</td><td>Not researched</td><td>Not researched</td><td>Not modelled</td>
+        <td class="src"><a href="https://www.salaryexpert.com/salary/job/consultant-sustainability/norway/oslo">ERI Oslo</a>, <a href="https://www.erieri.com/salary/job/environmental-consultant/norway">ERI Norway</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="10">Benelux</td></tr>
+      <tr>
+        <td>Luxembourg</td>
+        <td>EUR 85k <span class="thin">(yours)</span></td>
+        <td class="maybe">Thin, finance-oriented</td>
+        <td class="yes">Entry EUR 52,840, the highest entry pay for her field on this list. Average EUR 75,496, senior EUR 93,777. EY Luxembourg advertises a junior ESG consultant role without stating pay.</td>
+        <td class="no">Planning market tiny, stakeholder work almost absent. Second European hub for sustainable finance. <span class="thin">(yours)</span></td>
+        <td class="maybe">Narrow, ESG finance only</td>
+        <td>EUR 1,300 to 1,800</td><td class="num">35%</td><td>Not modelled</td>
+        <td class="src">Your sheet, <a href="https://careers.ey.com/ey/job/Luxembourg-ESG-Junior-Consultant-L-1855/1174422201">EY junior ESG consultant posting</a>. Anna pay: <a href="https://www.salaryexpert.com/salary/job/sustainability-consultant/luxembourg">ERI Luxembourg</a></td>
+      </tr>
+      <tr>
+        <td>Brussels</td>
+        <td>EUR 50k <span class="thin">(yours)</span></td>
+        <td class="maybe">Moderate, policy and corporate IT</td>
+        <td class="maybe">Roughly EUR 28k to 41k at entry. Payscale puts the environmental consultant median at EUR 41,446 in a range of EUR 26k to 64k, ERI at EUR 50,690, and Glassdoor Brussels junior consultant data works out to about EUR 28k to 35k. Named local employers: Sia, Avertim, Bopro.</td>
+        <td class="yes">EU institutions and NGOs, the densest policy market in Europe for her field. French is the asset, Dutch also useful. <span class="thin">(yours)</span></td>
+        <td class="yes">Good</td>
+        <td>EUR 700 to 900</td><td class="num yes">20%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.payscale.com/research/BE/Job=Environmental_Consultant/Salary">Payscale Belgium</a>, <a href="https://www.erieri.com/salary/job/environmental-consultant/belgium">ERI Belgium</a>, <a href="https://www.glassdoor.com/Salaries/brussels-junior-consultant-salary-SRCH_IL.0,8_IM992_KO9,26.htm">Glassdoor Brussels</a>, <a href="https://illuminem.com/illuminemvoices/60-juniorlevel-sustainability-jobs-in-europe-you-shouldnt-miss-in-october-2025">live listings</a></td>
+      </tr>
+      <tr>
+        <td>Antwerp</td>
+        <td>Below Brussels</td><td class="maybe">Port and logistics tech</td><td class="maybe">Belgian median EUR 41,446 in a range of EUR 26k to 64k.</td>
+        <td class="maybe">Dutch leaning <span class="thin">(yours)</span></td><td class="maybe">Moderate</td>
+        <td>EUR 600 to 800</td><td class="num yes">20%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.payscale.com/research/BE/Job=Environmental_Consultant/Salary">Payscale Belgium</a>, <a href="https://www.glassdoor.sg/Job/belgium-sustainability-jobs-SRCH_IL.0,7_IN25_KO8,22.htm">Glassdoor Belgium listings</a></td>
+      </tr>
+      <tr>
+        <td>Ghent</td>
+        <td>Below Brussels</td><td class="maybe">University-led</td><td class="maybe">Belgian median EUR 41,446. Bopro, a sustainable real estate and urban development consultancy, is based here.</td>
+        <td class="maybe">Dutch leaning <span class="thin">(yours)</span></td><td class="maybe">Moderate</td>
+        <td>EUR 600 to 800</td><td class="num yes">20%</td><td>Not modelled</td>
+        <td class="src">Your sheet. Anna pay: <a href="https://www.payscale.com/research/BE/Job=Environmental_Consultant/Salary">Payscale Belgium</a>, <a href="https://www.glassdoor.sg/Job/belgium-sustainability-jobs-SRCH_IL.0,7_IN25_KO8,22.htm">Glassdoor Belgium listings</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="10">Southern Europe</td></tr>
+      <tr>
+        <td>Milan</td>
+        <td>EUR 38k to 47k realistic, ERI says EUR 78.5k</td>
+        <td class="maybe">Moderate, finance and industrial</td>
+        <td class="no">EUR 30k to 40k. Glassdoor puts the Italian ESG consultant average at EUR 30,250, and a live sustainability consultant posting states EUR 34,000 to 40,000 gross. Employers: BIP.Verco, Lombardini22, PwC, Deloitte, KPMG.</td>
+        <td class="maybe">Italy's strongest sustainable finance market. Italian needed, fast for her to learn.</td>
+        <td class="maybe">Moderate</td>
+        <td>EUR 1,770</td><td class="num no">40 to 50%</td><td class="num">12 to 16 mo</td>
+        <td class="src"><a href="https://www.salaryexpert.com/salary/job/software-engineer-machine-learning/italy/milan">ERI</a>, <a href="https://www.spotahome.com/blog/milan-rental-market-2026/">Spotahome rental market 2026</a>. Anna pay: <a href="https://www.glassdoor.it/Stipendi/esg-consultant-stipendio-SRCH_KO0,14.htm">Glassdoor Italy</a>, <a href="https://it.indeed.com/offerte-lavoro-Sustainability-Consultant">Indeed live posting</a>, <a href="https://www.glassdoor.it/Lavoro/junior-sustainability-consultant-lavori-SRCH_KO0,32.htm">Glassdoor junior listings</a></td>
+      </tr>
+      <tr>
+        <td>Rome</td>
+        <td>Below Milan, Italy average about EUR 70k per ERI</td>
+        <td class="maybe">Thin, public sector heavy</td>
+        <td class="no">EUR 30k to 40k on national bands, but UN agency entry here is often an unpaid internship.</td>
+        <td class="maybe">FAO, IFAD, WFP plus government and NGO work. Internship-led like Geneva.</td>
+        <td class="maybe">12+ months</td>
+        <td>EUR 1,250</td><td class="num">35 to 45%</td><td class="num">14 to 18 mo</td>
+        <td class="src"><a href="https://www.numbeo.com/cost-of-living/in/Rome">Numbeo</a>, <a href="https://www.salaryexpert.com/salary/job/software-engineer-machine-learning/italy/milan">ERI</a>. Anna pay: <a href="https://www.glassdoor.it/Stipendi/esg-consultant-stipendio-SRCH_KO0,14.htm">Glassdoor Italy</a></td>
+      </tr>
+      <tr>
+        <td>Florence</td>
+        <td>About EUR 36k for software engineers, no ML data</td>
+        <td class="no">Very thin</td>
+        <td class="no">Below the national EUR 30,250 average.</td>
+        <td class="no">Small. Heritage work and the European University Institute.</td>
+        <td class="no">Long</td>
+        <td>EUR 1,520</td><td class="num">35 to 45%</td><td class="num">14 to 18 mo</td>
+        <td class="src"><a href="https://www.levels.fyi/t/software-engineer/locations/florence-ita">Levels.fyi</a>, <a href="https://www.numbeo.com/cost-of-living/region_prices_by_city?itemId=26&region=150">Numbeo</a>. Anna pay: <a href="https://www.glassdoor.it/Stipendi/esg-consultant-stipendio-SRCH_KO0,14.htm">Glassdoor Italy</a></td>
+      </tr>
+      <tr>
+        <td>Lisbon</td>
+        <td>EUR 47k Glassdoor to EUR 62k ERI, senior EUR 74k</td>
+        <td class="maybe">Growing, outsourcing heavy</td>
+        <td class="no">About EUR 18k to 21k. Indeed puts the Portuguese consultant average at EUR 1,526 a month. Glassdoor lists only 8 sustainability consultant openings in the entire country. Employers: Santander Totta, Applus.</td>
+        <td class="maybe">Some ESG, thinner than Spain or the Netherlands. Portuguese needed.</td>
+        <td class="maybe">Moderate to long</td>
+        <td>EUR 1,000 to 1,700</td><td class="num">35 to 45%</td><td class="num yes">18 to 24 mo</td>
+        <td class="src"><a href="https://www.salaryexpert.com/salary/job/machine-learning-engineer/portugal/lisbon">ERI</a>, <a href="https://www.glassdoor.com/Salaries/lisbon-portugal-machine-learning-engineer-salary-SRCH_IL.0,15_IM1121_KO16,41.htm">Glassdoor</a>, <a href="https://investropa.com/blogs/news/lisbon-rents">Investropa with INE</a>. Anna pay: <a href="https://pt.indeed.com/career/consultor/salaries">Indeed Portugal</a>, <a href="https://www.glassdoor.com.br/Vaga/portugal-consultor-de-sustentabilidade-vagas-SRCH_IL.0,8_IN195_KO9,38.htm">Glassdoor Portugal, 8 openings</a>, <a href="https://pt.indeed.com/q-esg-ofertas.html">Indeed ESG listings</a></td>
+      </tr>
+      <tr>
+        <td>Porto</td>
+        <td>EUR 41.6k entry to EUR 59.6k average per ERI</td>
+        <td class="maybe">Smaller than Lisbon</td>
+        <td class="no">About EUR 18k to 21k on national data. SBM Offshore advertises a corporate sustainability specialist here.</td>
+        <td class="no">Thin</td>
+        <td class="no">Long</td>
+        <td>EUR 900 to 1,200</td><td class="num">28 to 38%</td><td class="num yes">20 to 26 mo</td>
+        <td class="src"><a href="https://www.salaryexpert.com/salary/job/machine-learning-engineer/portugal/porto">ERI Porto</a>. Anna pay: <a href="https://pt.indeed.com/career/consultor/salaries">Indeed Portugal</a>, <a href="https://pt.indeed.com/q-esg-ofertas.html">Indeed ESG listings</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="10">Romania and the microstates</td></tr>
+      <tr>
+        <td>Bucharest</td>
+        <td>EUR 40k to 45k</td>
+        <td class="yes">Large outsourcing and product market</td>
+        <td class="no">Not sourced. The market is too small for reliable survey data.</td>
+        <td class="no">Nascent. Romanian needed. The clearest wrong-market case.</td>
+        <td class="no">Long</td>
+        <td>EUR 500 to 800</td><td class="num yes">12 to 20%</td><td class="num yes">30+ mo</td>
+        <td class="src"><a href="https://www.levels.fyi/en-gb/t/software-engineer/title/machine-learning-engineer/locations/bucharest-rou">Levels.fyi</a>, <a href="https://investropa.com/blogs/news/average-rent-bucharest">Investropa</a></td>
+      </tr>
+      <tr>
+        <td>Andorra</td>
+        <td>About EUR 40k, roughly 10% income tax</td>
+        <td class="no">Tiny</td>
+        <td class="no">No market to price</td>
+        <td class="no">Essentially absent</td>
+        <td class="no">Not applicable</td>
+        <td>Not researched</td><td>Not researched</td><td>Not modelled</td>
+        <td class="src"><a href="https://www.nucamp.co/blog/coding-bootcamp-andorra-and-top-10-best-paid-tech-job-in-andorra-in-2025">Nucamp tech pay and tax</a></td>
+      </tr>
+      <tr>
+        <td>Liechtenstein</td>
+        <td>Few employers, mostly cross-border</td>
+        <td class="no">Tiny</td>
+        <td class="no">No market to price</td>
+        <td class="no">None</td>
+        <td class="no">Not applicable</td>
+        <td>Not researched</td><td>Not researched</td><td>Not modelled</td>
+        <td class="src"><a href="https://iamhere.bakermckenzie.com/en/pages/liechtenstein">Baker McKenzie</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>B. Law, climate, language and friction</h3>
+  <div class="scroll">
+  <table>
+    <caption>Sun hours are from your sheet where you had them. The sources column is the honest part: rows sourced only to your sheet have not been independently checked.</caption>
+    <thead>
+      <tr>
+        <th>Location</th>
+        <th>Right to work</th>
+        <th>Move-in friction and upfront cost</th>
+        <th>Sun hours per year</th>
+        <th>Record high</th>
+        <th>Language, Anna</th>
+        <th>Language, Sebi</th>
+        <th>Social openness</th>
+        <th>Suicide per 100k</th>
+        <th>Citizenship</th>
+        <th>Sources</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="country"><td colspan="11">Switzerland</td></tr>
+      <tr>
+        <td>Geneva</td>
+        <td class="yes">Free movement, Romanian safeguard clause expired</td>
+        <td class="maybe">Up to 3 months in a blocked account, replacement tenant often needed to exit early</td>
+        <td class="maybe">Grey winters, lake fog</td><td>about 39 °C</td>
+        <td class="maybe">French preferred, English works in the UN</td><td class="yes">English</td>
+        <td class="no">Slow. Switzerland once ranked 61st of 67 on friendliness.</td><td class="num">14.0 including assisted deaths, 10.7 excluding them</td>
+        <td>10 years, dual allowed</td>
+        <td class="src"><a href="https://www.sem.admin.ch/dam/sem/en/data/eu/fza/personenfreizuegigkeit/factsheets/fs-uebersicht-fza-e.pdf.download.pdf/fs-uebersicht-fza-e.pdf">SEM</a>, <a href="https://www.swissinfo.ch/eng/politics/safeguard-clause_swiss-to-remove-limits-on-workers-from-romania-and-bulgaria/44517526">SWI swissinfo</a>, <a href="https://www.timeout.com/switzerland/blog/expats-put-off-by-swiss-rudeness-survey-finds-090116">InterNations via Time Out</a>, <a href="https://en.wikipedia.org/wiki/Suicide_in_Switzerland">WHO summary</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Zurich</td>
+        <td class="yes">Free movement</td>
+        <td class="maybe">As Geneva</td>
+        <td>45 to 230 h per month <span class="thin">(yours)</span></td><td>about 38 °C</td>
+        <td class="no">Swiss German near essential</td><td class="yes">English</td>
+        <td class="no">Slow</td><td class="num">14.0 including assisted deaths, 10.7 excluding them</td>
+        <td>10 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.sem.admin.ch/sem/en/home/integration-einbuergerung/schweizer-werden.html">SEM</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="11">Spain</td></tr>
+      <tr>
+        <td>Barcelona</td>
+        <td class="yes">EU</td>
+        <td class="maybe">1 to 2 months deposit, but rent control plus scarcity makes finding hard</td>
+        <td class="yes">about 2,500</td><td class="maybe">40.7 °C in July 2026</td>
+        <td class="yes">Native, Spanish and Catalan</td><td class="yes">English</td>
+        <td class="yes">Fast, among the most open in Europe</td><td class="num yes">8.7</td>
+        <td>10 years, dual only for the exempt list</td>
+        <td class="src"><a href="https://www.euronews.com/my-europe/2026/07/08/barcelona-sets-new-heat-record-of-405c-weather-agencies-say">Euronews with AEMET and Meteocat</a>, <a href="https://www.euronews.com/2022/03/14/planning-a-move-in-2022-here-are-europe-s-most-friendly-countries">Euronews on friendliness</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO via TheGlobalEconomy</a>, <a href="https://legalfournier.com/en/immigration/spanish-dual-citizenship/">Legal Fournier</a></td>
+      </tr>
+      <tr>
+        <td>Madrid</td>
+        <td class="yes">EU</td><td class="maybe">1 to 2 months deposit</td>
+        <td class="yes">2,700 <span class="thin">(yours)</span></td><td class="no">Interior, exceeds 42.5 °C</td>
+        <td class="yes">Native Castilian</td><td class="yes">English</td>
+        <td class="yes">Fast</td><td class="num yes">8.7</td>
+        <td>10 years</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Basque Country</td>
+        <td class="yes">EU</td><td class="maybe">Market described as complicated <span class="thin">(yours)</span></td>
+        <td class="no">1,700, very cloudy <span class="thin">(yours)</span></td><td class="yes">Mild all year</td>
+        <td class="no">Euskera, and required in the public sector</td><td class="yes">English</td>
+        <td class="yes">Open</td><td class="num yes">8.7</td>
+        <td>10 years</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO via TheGlobalEconomy</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="11">France</td></tr>
+      <tr>
+        <td>Paris</td>
+        <td class="yes">EU</td>
+        <td class="no">Guarantors normally required, which your sheet flags as the main obstacle</td>
+        <td>1,600 <span class="thin">(yours)</span></td><td class="maybe">about 42.6 °C in 2019</td>
+        <td class="maybe">French, which Anna has</td><td class="yes">English</td>
+        <td class="maybe">Hard to make friends, per your own note</td><td class="num no">16.6</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Lyon</td>
+        <td class="yes">EU</td><td class="no">Guarantors</td>
+        <td class="yes">2,000 <span class="thin">(yours)</span></td><td class="maybe">Hot summers <span class="thin">(yours)</span></td>
+        <td class="maybe">French</td><td class="yes">English</td><td class="maybe">Moderate</td><td class="num no">16.6</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Strasbourg</td>
+        <td class="yes">EU</td><td class="no">Guarantors</td>
+        <td>1,700 <span class="thin">(yours)</span></td><td class="yes">Cold foggy winters <span class="thin">(yours)</span></td>
+        <td class="maybe">French</td><td class="yes">English</td><td class="maybe">Moderate</td><td class="num no">16.6</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="11">Netherlands</td></tr>
+      <tr>
+        <td>Amsterdam</td>
+        <td class="yes">EU</td>
+        <td class="no">Worst here. A 410,000-home national shortage, about 4.8% of stock, and 100 to 450 applicants per listing.</td>
+        <td class="maybe">about 1,600, grey and wet</td><td class="yes">36.4 °C, no risk</td>
+        <td class="yes">English works</td><td class="yes">English</td>
+        <td class="yes">Open and very international</td><td class="num">11.5</td>
+        <td>5 years, dual generally not allowed</td>
+        <td class="src"><a href="https://www.nlcompass.com/guides/housing-crisis-netherlands-expats">NLCompass</a>, <a href="https://www.extremeweatherwatch.com/cities/bucharest/highest-temperatures">Extreme Weather Watch on NOAA data</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Utrecht</td>
+        <td class="yes">EU</td><td class="maybe">Same shortage, less competition than Amsterdam</td>
+        <td class="maybe">about 1,600</td><td class="yes">No risk</td>
+        <td class="yes">English works</td><td class="yes">English</td><td class="yes">Open</td><td class="num">11.5</td>
+        <td>5 years, dual generally not allowed</td>
+        <td class="src"><a href="https://renthunter.nl/average-rent-prices-in-major-dutch-cities-a-2025-update/">RentHunter</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Rotterdam</td>
+        <td class="yes">EU</td><td class="maybe">Cheaper than Amsterdam but rising fastest</td>
+        <td class="maybe">about 1,600</td><td class="yes">No risk</td>
+        <td class="yes">English works</td><td class="yes">English</td><td class="yes">Open</td><td class="num">11.5</td>
+        <td>5 years</td>
+        <td class="src"><a href="https://renthunter.nl/average-rent-prices-in-major-dutch-cities-a-2025-update/">RentHunter</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Groningen</td>
+        <td class="yes">EU</td><td class="maybe">Student pressure, otherwise easier</td>
+        <td class="maybe">about 1,550</td><td class="yes">No risk</td>
+        <td class="maybe">Dutch matters more here</td><td class="yes">English</td><td class="yes">Open, and she knows it</td><td class="num">11.5</td>
+        <td>5 years</td>
+        <td class="src"><a href="https://renthunter.nl/average-rent-prices-in-major-dutch-cities-a-2025-update/">RentHunter</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Maastricht</td>
+        <td class="yes">EU</td><td class="maybe">Easier than the Randstad</td>
+        <td class="maybe">about 1,600</td><td class="yes">No risk</td>
+        <td class="maybe">Dutch, some French</td><td class="yes">English</td><td class="yes">International</td><td class="num">11.5</td>
+        <td>5 years</td>
+        <td class="src"><a href="https://renthunter.nl/average-rent-prices-in-major-dutch-cities-a-2025-update/">RentHunter</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="11">Germany</td></tr>
+      <tr>
+        <td>Berlin</td>
+        <td class="yes">EU</td>
+        <td class="maybe">Up to 3 months Kaution, tight market, cheaper than Munich</td>
+        <td class="maybe">about 1,650, grey winters</td><td class="yes">about 39 to 40 °C</td>
+        <td class="maybe">English works, German widens it. A live ESG role here asks for C2.</td><td class="yes">English</td>
+        <td class="yes">The German exception, genuinely open</td><td class="num">12.9</td>
+        <td>5 years since 2024, dual allowed since 2024</td>
+        <td class="src"><a href="https://www.arbeitnow.com/jobs/companies/global-changer/consultant-sustainability-services-at-climate-tech-start-up-100-remote-moglich-berlin-321391">Berlin ESG posting requiring C2 German</a>, <a href="https://realting.com/news/rent-prices-in-germany-cities">Realting</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Munich</td>
+        <td class="yes">EU</td><td class="no">Up to 3 months Kaution in Germany's most expensive market</td>
+        <td class="maybe">about 1,750</td><td class="yes">37.6 °C, coolest big city here</td>
+        <td class="no">German required</td><td class="yes">English</td>
+        <td class="maybe">Reserved</td><td class="num">12.9</td>
+        <td>5 years, dual allowed</td>
+        <td class="src"><a href="https://www.extremeweatherwatch.com/cities/bucharest/highest-temperatures">Extreme Weather Watch</a>, <a href="https://realting.com/news/rent-prices-in-germany-cities">Realting</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="11">Austria</td></tr>
+      <tr>
+        <td>Vienna</td>
+        <td class="yes">EU</td><td class="maybe">Deposit plus agency Provision common</td>
+        <td class="yes">1,900, dry cold winters <span class="thin">(yours)</span></td><td class="maybe">about 39 °C</td>
+        <td class="no">German required</td><td class="yes">English</td>
+        <td class="maybe">Very international at work, reserved socially. Your sheet notes a shift right.</td><td class="num maybe">14.5</td>
+        <td class="no">10 years, dual generally not allowed. Verify.</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="11">Nordics</td></tr>
+      <tr>
+        <td>Stockholm</td>
+        <td class="yes">EU</td>
+        <td class="no">Without years in the first-hand queue you depend on the second-hand market, dearer and temporary <span class="thin">(yours)</span></td>
+        <td class="maybe">1,800, December almost sunless at 1.1 h a day <span class="thin">(yours)</span></td><td class="yes">No risk</td>
+        <td class="maybe">Swedish for municipal planning, English in corporate ESG</td><td class="yes">English</td>
+        <td class="maybe">Reserved, good international professional community <span class="thin">(yours)</span></td><td class="num maybe">13.8</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Gothenburg</td>
+        <td class="yes">EU</td><td class="maybe">Same queue problem, less acute <span class="thin">(yours)</span></td>
+        <td class="maybe">1,700, cloudier than Stockholm <span class="thin">(yours)</span></td><td class="yes">No risk</td>
+        <td class="maybe">As Stockholm</td><td class="yes">English</td><td class="maybe">Reserved</td><td class="num maybe">13.8</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Helsinki</td>
+        <td class="yes">EU</td><td class="maybe">Deposit 1 to 2 months</td>
+        <td class="no">1,700, the most extreme light contrast on the list <span class="thin">(yours)</span></td><td class="yes">No risk</td>
+        <td class="maybe">Finnish for planning, English in some ESG</td><td class="yes">English</td>
+        <td class="maybe">Reserved, but strong social infrastructure, saunas and libraries <span class="thin">(yours)</span></td><td class="num maybe">14.6</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Copenhagen</td>
+        <td class="yes">EU</td>
+        <td class="no">The worst upfront cost anywhere here. 3 months deposit plus 3 months prepaid, so up to 6 months out of savings on day one. <span class="thin">(yours)</span></td>
+        <td class="maybe">1,700, mild winters <span class="thin">(yours)</span></td><td class="yes">No risk</td>
+        <td class="yes">ESG open in English, Danish for planning</td><td class="yes">English</td>
+        <td class="maybe">Reserved. Shift right noted.</td><td class="num">10.5</td>
+        <td>9 years, dual allowed since 2015</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Aarhus</td>
+        <td class="yes">EU</td><td class="no">Same 6-month upfront <span class="thin">(yours)</span></td>
+        <td class="maybe">1,800 <span class="thin">(yours)</span></td><td class="yes">No risk</td>
+        <td class="yes">As Copenhagen</td><td class="yes">English</td><td class="maybe">Reserved</td><td class="num">10.5</td>
+        <td>9 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Oslo</td>
+        <td class="yes">EEA free movement</td>
+        <td class="maybe">Up to 3 months in a deposit account</td>
+        <td class="no">Very grey, dark winters</td><td class="yes">about 35 °C</td>
+        <td class="maybe">English widely used, Norwegian helps</td><td class="yes">English</td>
+        <td class="no">Slow</td><td class="num maybe">13.2</td>
+        <td>7 to 8 years, dual allowed since 2020</td>
+        <td class="src"><a href="https://secure.macrotrends.net/global-metrics/countries/nor/norway/suicide-rate">WHO via Macrotrends</a>, <a href="https://www.oecd.org/en/publications/society-at-a-glance-2024_918d8db3-en/full-report/suicides_357d50c7.html">OECD Society at a Glance 2024</a></td>
+      </tr>
+      <tr>
+        <td>Trondheim</td>
+        <td class="yes">EEA</td><td class="maybe">Norwegian norm, up to 3 months in a deposit account</td><td class="no">Darker than Oslo</td><td class="yes">No risk</td>
+        <td class="maybe">Norwegian more useful</td><td class="yes">English</td><td class="no">Slow</td><td class="num maybe">13.2</td>
+        <td>7 to 8 years</td>
+        <td class="src"><a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="11">Benelux</td></tr>
+      <tr>
+        <td>Luxembourg</td>
+        <td class="yes">EU</td><td class="maybe">Deposit 2 to 3 months</td>
+        <td class="no">1,600, among the cloudiest here <span class="thin">(yours)</span></td><td class="yes">No risk</td>
+        <td class="no">Luxembourgish, German and French, and the planning market is tiny</td><td class="yes">English</td>
+        <td class="maybe">Good mobility but little street life <span class="thin">(yours)</span></td><td class="num yes">8.2, lowest here</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Brussels</td>
+        <td class="yes">EU</td><td class="maybe">Deposit 2 to 3 months in a blocked account</td>
+        <td class="no">1,500, the lowest on the list <span class="thin">(yours)</span></td><td class="yes">No risk</td>
+        <td class="yes">French is the asset, Dutch useful</td><td class="yes">English</td>
+        <td class="yes">Very international <span class="thin">(yours)</span></td><td class="num no">18.4, highest here</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, tax wedge from <a href="https://www.oecd.org/en/publications/taxing-wages-2026_3a5169ef-en.html">OECD Taxing Wages 2026</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Antwerp</td>
+        <td class="yes">EU</td><td class="maybe">Deposit 2 to 3 months</td>
+        <td>1,700 <span class="thin">(yours)</span></td><td class="yes">No risk</td>
+        <td class="maybe">Dutch</td><td class="yes">English</td><td class="yes">Good mobility and sociability <span class="thin">(yours)</span></td><td class="num no">18.4</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Ghent</td>
+        <td class="yes">EU</td><td class="maybe">Deposit 2 to 3 months</td>
+        <td>about 1,700</td><td class="yes">No risk</td>
+        <td class="maybe">Dutch</td><td class="yes">English</td><td class="yes">Good mobility and sociability <span class="thin">(yours)</span></td><td class="num no">18.4</td>
+        <td>5 years, dual allowed</td>
+        <td class="src">Your sheet, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="11">Southern Europe</td></tr>
+      <tr>
+        <td>Milan</td>
+        <td class="yes">EU</td><td class="maybe">1 to 3 months deposit</td>
+        <td class="maybe">Grey foggy Po valley winters</td><td class="maybe">Humid with tropical nights. Hottest daily average since 1763 recorded in August 2023.</td>
+        <td class="maybe">Italian, fast for her</td><td class="yes">English mostly</td>
+        <td class="yes">High, piazza culture</td><td class="num yes">7.0</td>
+        <td>10 years, dual allowed</td>
+        <td class="src"><a href="https://gulfnews.com/world/europe/milan-records-hottest-day-since-1763-1.97725056">ARPA Lombardia via Gulf News</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Rome</td>
+        <td class="yes">EU</td><td class="maybe">1 to 3 months deposit</td>
+        <td class="yes">Sunny</td><td class="maybe">about 41.8 °C in July 2022, just under the limit</td>
+        <td class="maybe">Italian</td><td class="yes">English mostly</td><td class="yes">High</td><td class="num yes">7.0</td>
+        <td>10 years, dual allowed</td>
+        <td class="src"><a href="https://www.numbeo.com/cost-of-living/in/Rome">Numbeo</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Florence</td>
+        <td class="yes">EU</td><td class="maybe">1 to 3 months deposit</td>
+        <td class="yes">Sunny</td><td class="no">Not sourced. Valley heat trap, so verify before treating it as safe.</td>
+        <td class="maybe">Italian</td><td class="yes">English mostly</td><td class="yes">High</td><td class="num yes">7.0</td>
+        <td>10 years, dual allowed</td>
+        <td class="src">Gap flagged in section 9, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Lisbon</td>
+        <td class="yes">EU</td><td class="maybe">2 to 3 months deposit, strong upward pressure</td>
+        <td class="yes">Among the sunniest capitals</td><td class="maybe">44 °C once, in August 2018</td>
+        <td class="maybe">Portuguese, fast for her</td><td class="yes">English</td>
+        <td class="yes">Portugal rated friendliest in Europe</td><td class="num">11.5</td>
+        <td>5 years, dual allowed</td>
+        <td class="src"><a href="https://amp.cbc.ca/news/world/portugal-eurpoe-heatwave-temperature-records-1.4773905">CBC with IPMA</a>, <a href="https://www.euronews.com/2022/03/14/planning-a-move-in-2022-here-are-europe-s-most-friendly-countries">Euronews</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Porto</td>
+        <td class="yes">EU</td><td class="maybe">2 to 3 months deposit</td>
+        <td class="maybe">Wetter and greyer than Lisbon</td><td class="yes">39.9 °C in 1944</td>
+        <td class="maybe">Portuguese</td><td class="yes">English</td><td class="yes">Very friendly</td><td class="num">11.5</td>
+        <td>5 years, dual allowed</td>
+        <td class="src"><a href="https://www.severe-weather.eu/event-analysis/max-temperatures-ever-recorded-in-portugal/">IPMA via Severe Weather Europe</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+
+      <tr class="country"><td colspan="11">Romania and the microstates</td></tr>
+      <tr>
+        <td>Bucharest</td>
+        <td class="yes">Home country</td><td class="yes">Lowest deposits and cheapest entry anywhere here</td>
+        <td class="yes">Sunny summers, grey winters</td><td class="no">42.2 °C in July 2000, exceeds the limit</td>
+        <td class="maybe">Romanian</td><td class="yes">Native</td><td>Moderate</td><td class="num">10.5</td>
+        <td>Already a citizen</td>
+        <td class="src"><a href="https://www.extremeweatherwatch.com/cities/bucharest/highest-temperatures">Extreme Weather Watch on NOAA data</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Andorra</td>
+        <td class="no">2026 quota cut to 800 permits, employer tied, priority to Spanish, French and Portuguese nationals</td>
+        <td class="no">Permit first, then housing</td>
+        <td class="yes">Sunny mountain climate</td><td class="yes">about 35 °C</td>
+        <td class="no">Catalan, but there is no market</td><td class="yes">English</td><td>Small and closed</td><td>No WHO figure published</td>
+        <td class="no">20 years</td>
+        <td class="src"><a href="https://www.envoyglobal.com/news-alert/andorra-approves-reduced-2026-immigration-quota-of-800-permits/">Envoy Global</a>, <a href="https://expressglobalemployment.com/countries/work-permit-for-hiring-expats-via-peo-in-andorra/">Express Global Employment</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+      <tr>
+        <td>Liechtenstein</td>
+        <td class="no">72 EEA permits a year, about half by lottery</td>
+        <td class="no">Effectively unavailable</td>
+        <td>Alpine</td><td class="yes">about 37 °C</td>
+        <td class="no">German, and no market</td><td class="yes">English</td><td>Very small</td><td>No WHO figure published</td>
+        <td class="no">30 years, dual not permitted</td>
+        <td class="src"><a href="https://visaatlas.org/visas/liechtenstein/residence-permit-b-employment">Visa Atlas</a>, <a href="https://iamhere.bakermckenzie.com/en/pages/liechtenstein">Baker McKenzie</a>, <a href="https://www.theglobaleconomy.com/rankings/suicides/OECD/">WHO 2021 via TheGlobalEconomy</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="src" style="margin-top:-6px">Suicide figures are WHO 2021 rates per 100,000, compiled by TheGlobalEconomy from the OECD set, so they are comparable across rows. Two caveats: Belgium and Switzerland both have permissive assisted-dying laws, which inflates their coded totals, and Eurostat's age-standardised series gives systematically lower numbers for the same year, for example 5.9 for Italy against 7.0 here. Use the ranking, not the absolute value. <a href="https://ec.europa.eu/eurostat/web/products-eurostat-news/w/edn-20240909-1">Eurostat 2021</a>.</p>
+
+
+  <div class="legend">
+    <span><b class="yes">Green</b> works in your favour</span>
+    <span><b class="maybe">Amber</b> workable with a cost</span>
+    <span><b class="no">Red</b> a real obstacle or a veto</span>
+    <span><b>(yours)</b> carried from your sheet, not independently checked</span>
+    <span><b>Not sourced</b> a genuine gap, not a zero</span>
+  </div>
+
+  <div class="gaps" style="margin-top:20px">
+    <p><strong>Four things the completed pay columns show that were invisible before.</strong></p>
+    <p><strong>Anna's field pays best in exactly the places you had written off, and worst in the ones you were drawn to.</strong> Entry pay for a sustainability or ESG consultant, ranked: Luxembourg EUR 52,840, Copenhagen about EUR 45,500, Oslo about EUR 42,000, Paris EUR 40,000 to 45,000, Helsinki EUR 38,713, Switzerland CHF 62,715 which is roughly EUR 66,000, Berlin EUR 40,000 to 55,000, the Netherlands EUR 30,000 to 45,000, Stockholm about EUR 36,000 median, Brussels EUR 28,000 to 41,000, Milan EUR 30,000 to 40,000, Barcelona and Madrid EUR 22,000 to 30,000, Lisbon and Porto about EUR 18,000 to 21,000. Barcelona, your best language and social fit, is second from bottom. Lisbon is bottom.</p>
+    <p><strong>Barcelona is the double-tight case, and this is the single biggest change to the ranking.</strong> Sebi lands at roughly EUR 2,500 to 3,000 net against his EUR 3,500 floor, and Anna's field starts at EUR 22,000 to 30,000, since a junior consultant in Spain starts near EUR 27,000 and the national consultant median is also about EUR 27,000. Two tight salaries against rent at 35 to 48% is a different proposition from one. It remains the best language and social fit on the list, but the money only works if Sebi holds a remote or foreign-payer contract.</p>
+    <p><strong>Paris and Brussels are the two strongest options that were missing from the original research, for opposite reasons.</strong> Paris pays Anna EUR 40,000 to 45,000 at junior level in her own language, with the deepest ML market in France for Sebi at EUR 50,000 to 90,000, and rent at 30% of income. The obstacle is the guarantor requirement your sheet already flagged, plus France's 47.2% tax wedge and the highest suicide rate of your western European candidates at 16.6. Brussels pays Anna less at EUR 28,000 to 41,000 but has the densest EU and NGO policy market in Europe for precisely her profile, French works, and rent is the lowest share of any capital here at 20%. Its two costs are Belgium's 52.5% tax wedge, the highest in the OECD, which is what squeezes Sebi at EUR 50,000 gross, and the highest coded suicide rate on the list at 18.4, though Belgium's permissive assisted-dying law inflates that figure.</p>
+    <p><strong>The language gate now has a price attached to it.</strong> A live Berlin sustainability consultant role pays EUR 50,000 to 60,000 and requires German at C2 alongside English at C1. Berlin consultants average EUR 55,900 in a range of EUR 46,800 to 65,500. The money in Anna's field is there, it is simply behind a language she does not have yet. The same pattern holds in Vienna, Munich, Zurich, Stockholm and Helsinki: high pay, local language required. The places where her existing languages already work are Barcelona and Madrid at the bottom of the pay range, Paris and Brussels and Geneva in French, and the Netherlands in English.</p>
+    <p><strong>What is still genuinely open:</strong> Sebi's ML salary for the Basque Country and Trondheim, Vienna's entry pay for Anna, which is a German proxy rather than a sourced Austrian figure, Florence's record high temperature, and Andorra and Liechtenstein rent, which we did not chase because both are vetoed on right to work. Everything else in both tables now has a source at the end of its row.</p>
+  </div>
+</section>
+
+<section class="verdict">
+  <h2>The three that survive the filters</h2>
+  <p class="lead">Ranked by whether <em>both</em> careers work, not by whether either one does.</p>
+
+  <div class="shortlist">
+    <div class="pick">
+      <p class="city">Amsterdam</p>
+      <p class="role">or Utrecht, for a saner flat hunt</p>
+      <p>The only place where Sebi clears his floor with real margin and Anna can enter a thick ESG market in English within months. The housing shortage is the price of admission.</p>
+    </div>
+    <div class="pick">
+      <p class="city">Barcelona</p>
+      <p class="role">best fit for Anna</p>
+      <p>Her native Spanish and Catalan unlock her whole field, the ESG scene is large, the coast keeps you under the heat limit, and people are open. Sebi's pay is the weak point.</p>
+    </div>
+    <div class="pick">
+      <p class="city">Berlin</p>
+      <p class="role">best fit for Sebi</p>
+      <p>Deepest ML market on the list, cheap sociability, the one German city that is genuinely easy to arrive in. Anna starts in English and learns German.</p>
+    </div>
+  </div>
+
+  <div class="out">
+    <p style="margin:0"><b>Ruled out before scoring.</b> Liechtenstein issues 72 residence permits a year to EEA nationals and awards about half by lottery, so it cannot be planned for. Andorra cut its 2026 quota to 800 permits and Anna's field barely exists there. Bucharest has hit 42.2 °C and is the wrong market for Anna, despite being by far the cheapest. Lisbon and Porto do not clear Sebi's net floor at junior level.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="n">1</span>Summary ranking</h2>
+<p class="lead">Vetoes applied first, then the weighted score in section 2.8. Runway is how long EUR 35,000 lasts with Anna unpaid, modelled in section 6.</p>
+
+<div class="scroll">
+<table>
+  <caption>Salary figures are bands, not points. Aggregators disagree by two to three times for the same city, so treat the rent percentage as indicative.</caption>
+  <thead>
+    <tr><th>#</th><th>City</th><th>Sebi clears EUR 3,500 net</th><th>Anna, paid entry</th><th>Heat limit</th><th>Rent as % of Sebi net</th><th>Runway</th><th>Verdict</th></tr>
+  </thead>
+  <tbody>
+    <tr class="lead-row"><td>1</td><td><strong>Amsterdam / Utrecht</strong></td><td class="yes">Yes, plus 30% ruling</td><td class="yes">Thick, English works</td><td class="yes">No risk</td><td class="num">25 to 32%</td><td class="num">10 to 16 mo</td><td><span class="tag y">Strong</span></td></tr>
+    <tr class="lead-row"><td>2</td><td><strong>Berlin</strong></td><td class="yes">Comfortably</td><td class="maybe">Moderate, German helps</td><td class="yes">No risk</td><td class="num">18 to 24%</td><td class="num">15 to 18 mo</td><td><span class="tag y">Strong</span></td></tr>
+    <tr class="lead-row"><td>3</td><td><strong>Barcelona</strong></td><td class="maybe">Tight at junior</td><td class="yes">Thick, native languages</td><td class="maybe">40.7 °C, under limit</td><td class="num">35 to 48%</td><td class="num">15 to 20 mo</td><td><span class="tag y">Strong, Anna led</span></td></tr>
+    <tr><td>4</td><td>Rotterdam, Groningen, Maastricht</td><td class="yes">Yes</td><td class="maybe">Thinner than Amsterdam</td><td class="yes">No risk</td><td class="num">20 to 28%</td><td class="num">14 to 22 mo</td><td><span class="tag y">Good</span></td></tr>
+    <tr><td>5</td><td>Munich</td><td class="yes">Highest German pay</td><td class="maybe">Corporate ESG, German needed</td><td class="yes">No risk</td><td class="num">22 to 28%</td><td class="num">10 to 14 mo</td><td><span class="tag m">Good, expensive</span></td></tr>
+    <tr><td>6</td><td>Geneva</td><td class="yes">By a wide margin</td><td class="maybe">UN and NGO, entry unpaid</td><td class="yes">No risk</td><td class="num">20 to 28%</td><td class="num">6 to 10 mo</td><td><span class="tag m">Two body trap</span></td></tr>
+    <tr><td>7</td><td>Milan</td><td class="maybe">Tight</td><td class="maybe">Growing, Italian needed</td><td class="maybe">Humid, not extreme</td><td class="num">40 to 50%</td><td class="num">12 to 16 mo</td><td><span class="tag m">Mixed</span></td></tr>
+    <tr><td>8</td><td>Lisbon</td><td class="no">Fails at junior</td><td class="maybe">Some ESG, Portuguese needed</td><td class="maybe">44 °C once, in 2018</td><td class="num">35 to 45%</td><td class="num">18 to 24 mo</td><td><span class="tag m">Lifestyle over pay</span></td></tr>
+    <tr><td>9</td><td>Porto</td><td class="no">Fails at junior</td><td class="no">Thin</td><td class="yes">Coastal, no risk</td><td class="num">28 to 38%</td><td class="num">20 to 26 mo</td><td><span class="tag m">Lifestyle over pay</span></td></tr>
+    <tr><td>10</td><td>Rome, Florence</td><td class="maybe">Tight</td><td class="maybe">Public sector and NGO</td><td class="maybe">Rome 41.8 °C</td><td class="num">35 to 45%</td><td class="num">14 to 18 mo</td><td><span class="tag m">Mixed</span></td></tr>
+    <tr><td>11</td><td>Oslo</td><td class="yes">Yes</td><td class="maybe">Exists, Norwegian helps</td><td class="yes">No risk</td><td class="num">20 to 26%</td><td class="num">12 to 16 mo</td><td><span class="tag m">Grey and dark</span></td></tr>
+    <tr><td>12</td><td>Bucharest</td><td class="maybe">Only at upper end</td><td class="no">Thin for her field</td><td class="no">42.2 °C record</td><td class="num">12 to 20%</td><td class="num">30+ mo</td><td><span class="tag m">Cheap, wrong field</span></td></tr>
+    <tr><td>13</td><td>Andorra</td><td class="maybe">Thin market, 10% tax</td><td class="no">Almost nothing</td><td class="yes">No risk</td><td class="num">n/a</td><td class="num">n/a</td><td><span class="tag n">Quota</span></td></tr>
+    <tr><td>14</td><td>Liechtenstein</td><td class="no">Permit lottery</td><td class="no">None</td><td class="yes">No risk</td><td class="num">n/a</td><td class="num">n/a</td><td><span class="tag n">Ruled out</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="n">2</span>The framework, rebuilt</h2>
+<p class="lead">Your original list scored climate, work, safety, environment and language. It was sound but it optimised for the first year. Five things were missing.</p>
+
+<h3>2.1 Why this choice compounds</h3>
+<ul>
+  <li>The urban wage premium is large and, importantly, partly portable. The average urban worker earns roughly a third more than non-urban counterparts, a pattern that holds across countries and across the last eighty years. Swedish register data finds the premium from big-city work experience is not lost when someone later moves to a smaller city, which means it reflects learning and human capital rather than just local prices, and the effect is stronger for higher-ability workers.
+    <div class="src">Butts and Jaworski, <a href="https://www.kylebutts.com/files/urban_wage.pdf">The Urban Wage Premium in Historical Perspective</a>. Eliasson and Westerlund, <a href="https://academic.oup.com/joeg/article/23/3/601/6764665">Journal of Economic Geography 23(3), 2023</a>.</div>
+  </li>
+  <li>Fielding's escalator region idea, now well replicated: large metros attract upwardly mobile young adults, promote them faster, and let them step off later while keeping the gains. Entering the labour market in an urban area is associated with higher cumulative lifetime income, with the gap widening later in life.
+    <div class="src"><a href="https://www.hindawi.com/journals/usr/2012/827171/">Urban Studies Research, regional escalators</a>. <a href="https://bristoluniversitypressdigital.com/view/journals/llcs/13/3/article-p352.xml">Longitudinal and Life Course Studies 13(3), 2022</a>.</div>
+  </li>
+  <li>What this means for you specifically: a thick ML metro compounds faster for Sebi than a thin one at similar starting pay, and for Anna, being inside the right professional ecosystem early is itself the investment. That is the argument for her taking an internship, and it is a good argument.</li>
+</ul>
+
+<h3>2.2 Treat the two careers as one constraint</h3>
+<p>This is the biggest change. Your list scored Sebi's salary and Anna's employability as separate rows. The economics says score them jointly. Mincer's dual-earner model, and the empirical work since, shows two sets of location preferences produce lower mobility and a higher chance that one partner ends up somewhere individually sub-optimal for their career. That partner is the tied mover. The friction is worst in occupations concentrated in a few regions.</p>
+<p>ESG, impact assessment and planning consulting is more geographically concentrated <em>and</em> more language-gated than ML engineering. So Anna is the structural tied mover here, and her market has to be the primary filter rather than a secondary score.</p>
+<div class="src"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0927537126000114">Occupational co-agglomeration in dual-earner households</a>. Overview: <a href="https://en.wikipedia.org/wiki/Dual-career_commuter_couples">dual-career couples</a>.</div>
+<div class="aside"><p><strong>Rule to adopt.</strong> A city passes only if both markets are genuinely present, or if Sebi's income alone funds Anna's runway into an ecosystem that actually exists there. Applying just this one rule drops Geneva and lifts the Netherlands.</p></div>
+
+<h3>2.3 Compare net savings, not gross salary</h3>
+<p>Rent should be a share of take-home pay. The OECD tax wedge for a single worker on the average wage was 35.1% of labour cost across the OECD in 2025, the highest since 2016, with the largest wedges in Belgium at 52.5%, Germany 49.3%, France 47.2%, Austria 47.1% and Italy 45.8%. Two costs sit outside that figure and matter here: Dutch mandatory basic health insurance at roughly EUR 140 to 160 per person per month, and Swiss mandatory health insurance at roughly CHF 300 to 450 per person per month. Both come out after tax.</p>
+<div class="src">OECD, <a href="https://www.oecd.org/en/publications/taxing-wages-2026_3a5169ef-en.html">Taxing Wages 2026</a>, covering 2025.</div>
+<p class="method">Planning bands for take-home on gross, single with no children: Germany 58 to 62%, Netherlands 62 to 68% and higher with the 30% ruling, Spain 74 to 78%, Portugal 65 to 72%, Switzerland 78 to 83% before health premiums, Romania 58 to 60%, Norway 66 to 70%, Italy 60 to 66%. Confirm with a local calculator before signing anything.</p>
+
+<h3>2.4 Right to work is a veto, not a score</h3>
+<div class="scroll">
+<table>
+  <thead><tr><th>Jurisdiction</th><th>Sebi, Romanian</th><th>Anna, EU national</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td>Switzerland</td><td class="yes">Full free movement. The safeguard clause on Romanian and Bulgarian nationals has expired, so the free movement agreement applies without restriction.</td><td class="yes">Full free movement</td><td><span class="tag y">Open</span></td></tr>
+    <tr><td>Andorra</td><td class="maybe">Employer-tied active residency permit. The 2026 general quota was cut to 800 permits, 624 residence and work plus 176 cross-border, down 11%. Priority goes to Spanish, French and Portuguese nationals.</td><td class="maybe">Same quota, Spanish nationality would give priority</td><td><span class="tag n">Near veto</span></td></tr>
+    <tr><td>Liechtenstein</td><td class="no">72 EEA permits a year, 56 for employment and 16 other, with about half allocated by a twice-yearly lottery. Roughly 80% of jobs are done by cross-border commuters.</td><td class="no">Same lottery</td><td><span class="tag n">Veto</span></td></tr>
+  </tbody>
+</table>
+</div>
+<div class="src">Swiss free movement: <a href="https://www.sem.admin.ch/dam/sem/en/data/eu/fza/personenfreizuegigkeit/factsheets/fs-uebersicht-fza-e.pdf.download.pdf/fs-uebersicht-fza-e.pdf">SEM factsheet</a>, safeguard expiry via <a href="https://www.swissinfo.ch/eng/politics/safeguard-clause_swiss-to-remove-limits-on-workers-from-romania-and-bulgaria/44517526">SWI swissinfo</a>. Andorra: <a href="https://www.envoyglobal.com/news-alert/andorra-approves-reduced-2026-immigration-quota-of-800-permits/">Envoy Global</a>, <a href="https://expressglobalemployment.com/countries/work-permit-for-hiring-expats-via-peo-in-andorra/">Express Global Employment</a>. Liechtenstein: <a href="https://visaatlas.org/visas/liechtenstein/residence-permit-b-employment">Visa Atlas</a>, <a href="https://iamhere.bakermckenzie.com/en/pages/liechtenstein">Baker McKenzie</a>.</div>
+<p><strong>On Anna and Brexit:</strong> she moves on her own EU nationality, so being currently resident in the UK does not restrict an onward move into the EU, the EEA or Switzerland. Only her rights to return to the UK are affected.</p>
+
+<h3>2.5 Citizenship, where the evidence stops and a lawyer starts</h3>
+<h4>Sebi: Spanish citizenship against the Romanian passport</h4>
+<ul>
+  <li>Spain's exemption from renouncing a prior nationality covers Ibero-American countries, Andorra, the Philippines, Equatorial Guinea and Portugal, plus France by a 2021 treaty. Romania is not on that list, so under Article 23 of the Civil Code the renunciation declaration would be required at the oath.</li>
+  <li>In practice Spanish administrative doctrine treats this as a declaration only, and has held that it is irrelevant whether the renunciation actually causes loss of the other nationality. Romania permits multiple citizenship, so the Romanian passport is not lost unless Sebi separately files to renounce with Romanian authorities.</li>
+  <li>A Spain and Romania dual-nationality working group was agreed at the November 2022 summit, and in February 2025 Spain's foreign minister said drafts had been exchanged and a definitive text was being worked on. It remains unsigned. If signed it removes the problem entirely and would cover roughly 600,000 Romanians in Spain.</li>
+  <li><strong>Recommendation:</strong> do not take any step that risks the Romanian passport, since it is the legal basis of this entire move. Get written advice from a Spanish immigration lawyer, and if the treaty is close, consider waiting.</li>
+</ul>
+<div class="src"><a href="https://www.echeverriaabogados.com/en/blog/spanish-citizenship/if-acquire-spanish-nationality-by-residence-lose-my-nationality-origin">Echeverría Abogados on DGRN doctrine</a>. <a href="https://legalfournier.com/en/immigration/spanish-dual-citizenship/">Legal Fournier on Articles 23 and 24</a>. Treaty status via <a href="https://www.thelocal.es/20250217/spain-inches-closer-to-dual-nationality-deal-with-romania">The Local</a>.</div>
+
+<h4>Anna: the Swiss grandmother</h4>
+<p>Probably closed, and worth knowing now rather than later. Since the Federal Act on Swiss Citizenship took effect on 1 January 2018, citizenship no longer passes to grandchildren, and the earlier simplified route for descendants of a Swiss grandmother closed on 31 December 2017. Swiss nationality by descent now runs parent to child. Having Swiss grandparents alone is not sufficient. The one remaining path is through Anna's <em>parent</em>: if that parent holds Swiss citizenship, or can first reclaim it, Anna could then claim through them. Worth a single enquiry to a Swiss consulate, but do not build the plan on it.</p>
+<div class="src"><a href="https://www.swissinfo.ch/eng/politics/naturalisation_was-your-grandma-swiss-then-you-ve-got-six-months-left-to-claim-your-swiss-citizenship/43211068">SWI swissinfo on the closed window</a>. <a href="https://www.sem.admin.ch/sem/en/home/integration-einbuergerung/schweizer-werden.html">State Secretariat for Migration</a>. <a href="https://immigration-switzerland.co/citizenship-by-descent-switzerland/">Descent overview</a>.</div>
+
+<h3>2.6 Reversibility, exit cost and the long horizon</h3>
+<div class="scroll">
+<table>
+  <thead><tr><th>Country</th><th>Deposit norm</th><th>Exit friction</th><th>Naturalisation</th><th>Dual citizenship</th></tr></thead>
+  <tbody>
+    <tr><td>Netherlands</td><td>1 to 2 months</td><td>One month notice on a permanent lease</td><td>5 years, Dutch A2 to B1</td><td class="maybe">Generally not</td></tr>
+    <tr><td>Germany</td><td>Up to 3 months</td><td>Three months notice</td><td>5 years since the 2024 reform, B1</td><td class="yes">Yes since 2024</td></tr>
+    <tr><td>Spain</td><td>1 to 2 months</td><td>Penalty clauses common</td><td>10 years, 2 for Ibero-Americans</td><td class="maybe">Exempt list only</td></tr>
+    <tr><td>Portugal</td><td>2 to 3 months</td><td>Moderate</td><td>5 years, A2</td><td class="yes">Yes</td></tr>
+    <tr><td>Switzerland</td><td>Up to 3 months, blocked account</td><td>Often need to find a replacement tenant</td><td>10 years, B1</td><td class="yes">Yes</td></tr>
+    <tr><td>Italy</td><td>1 to 3 months</td><td>Moderate</td><td>10 years</td><td class="yes">Yes</td></tr>
+    <tr><td>Norway</td><td>Up to 3 months, deposit account</td><td>Per contract</td><td>About 7 to 8 years</td><td class="yes">Yes since 2020</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Pensions favour mobility.</strong> Across the EU, the EEA and Switzerland, state pension rights are coordinated under Regulation 883/2004 and the free movement agreement: contribution periods aggregate and each country pays a pro-rata pension later. You do not forfeit accrued state entitlements by moving again in two or three years. Occupational pots differ, Swiss second-pillar savings can sometimes be partly withdrawn on leaving, Dutch occupational pots stay put and pay out at retirement. A short first stay is low risk.</p>
+
+<h3>2.7 How long it takes to have friends</h3>
+<p>InterNations Expat Insider data is consistent year to year. Portugal and Spain rank among the friendliest and easiest places in Europe to settle. Switzerland, Germany, Austria and the Nordics repeatedly sit near the bottom on local friendliness, with Switzerland once falling to 61st of 67 countries. For you: Barcelona, Lisbon and Porto give the fastest social integration, Berlin is the German exception and much easier than Munich, and Geneva and Oslo are the slowest.</p>
+<div class="src"><a href="https://www.timeout.com/switzerland/blog/expats-put-off-by-swiss-rudeness-survey-finds-090116">InterNations via Time Out</a>. <a href="https://www.euronews.com/2022/03/14/planning-a-move-in-2022-here-are-europe-s-most-friendly-countries">Euronews on Portugal</a>. <a href="https://www.expathy.org/best-countries-expats-2025">Expat Insider 2025 summary</a>.</div>
+
+<h3>2.8 The scoring model to use</h3>
+<p><strong>Step one, hard vetoes.</strong> Realistic right to work, Sebi's net floor of EUR 3,500, and no regular heat above 42.5 °C. These remove Liechtenstein and Andorra, flag Lisbon, Porto and Bucharest on pay, and flag Bucharest on heat.</p>
+<p><strong>Step two, weight what is left.</strong></p>
+<div class="scroll">
+<table>
+  <thead><tr><th>Criterion</th><th>Weight</th><th>Why it earns that weight</th></tr></thead>
+  <tbody>
+    <tr><td>Both markets present at once</td><td class="num">25%</td><td>The co-location constraint, the strongest predictor of whether a couple's move holds</td></tr>
+    <tr><td>Net savings rate after rent</td><td class="num">20%</td><td>Protects the runway, and is what gross salary hides</td></tr>
+    <tr><td>Anna's realistic paid entry and language fit</td><td class="num">15%</td><td>Whether her ecosystem exists and is workable in her languages</td></tr>
+    <tr><td>Grey days and climate comfort</td><td class="num">10%</td><td>Your stated preference, with cold explicitly fine</td></tr>
+    <tr><td>Social openness</td><td class="num">10%</td><td>Matters most for the tied mover</td></tr>
+    <tr><td>Safety and population mental health</td><td class="num">10%</td><td>Walking around calmly</td></tr>
+    <tr><td>Urbanism, cycling, transit, sociability</td><td class="num">10%</td><td>Daily quality of life</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="method">Any weighting is a value judgement, and small changes reorder the middle of the table. The vetoes are robust, the fine ranking is not. Re-run this the moment either of you has an actual offer, because a real job in Anna's field in any surviving city should override the model.</p>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="n">3</span>Climate and extreme heat</h2>
+<p class="lead">Fewer grey days counts in favour. Cold does not count against. Regular heat above 42.5 °C is a veto.</p>
+<div class="scroll">
+<table>
+  <caption>Record highs are at each city's official reference station.</caption>
+  <thead><tr><th>City</th><th>Summer daily max</th><th>Winter, January</th><th>Record high</th><th>Above 42.5 °C</th><th>Light</th></tr></thead>
+  <tbody>
+    <tr><td>Geneva</td><td class="num">26 to 28 °C</td><td class="num">1 to 5 °C</td><td class="num">about 39 °C</td><td class="yes">No</td><td>Grey winters, lake fog</td></tr>
+    <tr><td>Barcelona</td><td class="num">28 to 30 °C</td><td class="num">9 to 14 °C</td><td class="num">40.7 °C, July 2026</td><td class="yes">No, coast moderates it</td><td class="yes">Very sunny, about 2,500 hours</td></tr>
+    <tr><td>Lisbon</td><td class="num">28 to 29 °C</td><td class="num">8 to 15 °C</td><td class="num">44 °C, August 2018</td><td class="maybe">Breached once</td><td class="yes">Among the sunniest capitals</td></tr>
+    <tr><td>Porto</td><td class="num">25 to 26 °C</td><td class="num">5 to 14 °C</td><td class="num">39.9 °C, 1944</td><td class="yes">No</td><td class="maybe">Wetter and greyer than Lisbon</td></tr>
+    <tr><td>Bucharest</td><td class="num">30 to 32 °C</td><td class="num">-4 to 2 °C</td><td class="num">42.2 °C, July 2000</td><td class="no">Yes, exceeds the limit</td><td>Sunny summers, grey winters</td></tr>
+    <tr><td>Berlin</td><td class="num">24 to 26 °C</td><td class="num">-1 to 3 °C</td><td class="num">about 39 to 40 °C</td><td class="yes">No</td><td class="maybe">Grey winters</td></tr>
+    <tr><td>Munich</td><td class="num">23 to 25 °C</td><td class="num">-3 to 3 °C</td><td class="num">37.6 °C, June 2026</td><td class="yes">No, coolest big city here</td><td class="maybe">Grey winters</td></tr>
+    <tr><td>Amsterdam</td><td class="num">21 to 23 °C</td><td class="num">1 to 6 °C</td><td class="num">36.4 °C, July 2019</td><td class="yes">No risk at all</td><td class="maybe">Grey and wet, about 1,600 hours</td></tr>
+    <tr><td>Rotterdam, Utrecht, Maastricht, Groningen</td><td class="num">21 to 23 °C</td><td class="num">1 to 6 °C</td><td class="num">Dutch record 40.7 °C, 2019</td><td class="yes">No</td><td class="maybe">Grey and wet</td></tr>
+    <tr><td>Oslo</td><td class="num">21 to 23 °C</td><td class="num">-6 to -1 °C</td><td class="num">about 35 °C</td><td class="yes">No</td><td class="no">Very grey, dark winters</td></tr>
+    <tr><td>Milan</td><td class="num">29 to 31 °C, humid</td><td class="num">0 to 7 °C</td><td class="num">Record daily average 33 °C, August 2023, hottest since 1763</td><td class="maybe">Under the limit but oppressive</td><td class="maybe">Foggy Po valley winters</td></tr>
+    <tr><td>Rome</td><td class="num">30 to 32 °C</td><td class="num">4 to 13 °C</td><td class="num">about 41.8 °C, July 2022</td><td class="maybe">Just under</td><td class="yes">Sunny</td></tr>
+    <tr><td>Florence</td><td class="num">31 to 33 °C</td><td class="num">2 to 11 °C</td><td class="num">Not cleanly sourced</td><td class="maybe">Verify, valley heat trap</td><td class="yes">Sunny</td></tr>
+    <tr><td>Andorra</td><td class="num">22 to 25 °C</td><td class="num">-3 to 6 °C</td><td class="num">about 35 °C</td><td class="yes">No</td><td class="yes">Sunny mountain climate</td></tr>
+    <tr><td>Liechtenstein</td><td class="num">24 to 26 °C</td><td class="num">-2 to 4 °C</td><td class="num">about 37 °C</td><td class="yes">No</td><td>Alpine</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="src">Barcelona: <a href="https://www.euronews.com/my-europe/2026/07/08/barcelona-sets-new-heat-record-of-405c-weather-agencies-say">Euronews with AEMET and Meteocat</a>. Bucharest, Berlin, Munich, Amsterdam: <a href="https://www.extremeweatherwatch.com/cities/bucharest/highest-temperatures">Extreme Weather Watch on NOAA data</a>. Lisbon: <a href="https://amp.cbc.ca/news/world/portugal-eurpoe-heatwave-temperature-records-1.4773905">CBC with IPMA</a>. Porto: <a href="https://www.severe-weather.eu/event-analysis/max-temperatures-ever-recorded-in-portugal/">Severe Weather Europe with IPMA</a>. Milan: <a href="https://gulfnews.com/world/europe/milan-records-hottest-day-since-1763-1.97725056">ARPA Lombardia via Gulf News</a>.</div>
+<p><strong>Trend note.</strong> Europe is the fastest-warming continent and heatwaves are increasing in intensity and frequency, so the coastal cities on this list, Barcelona, Porto and Amsterdam, are the most reliably future-proof against your 42.5 °C rule. Inland valley cities, Florence and Milan, and continental Bucharest, are the ones most likely to breach it in the next decade.</p>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="n">4</span>Safety and population mental health</h2>
+<div class="scroll">
+<table>
+  <caption>Suicide rate per 100,000, WHO 2021 compiled figures. Lower is better. The Swiss figure excludes assisted suicide.</caption>
+  <thead><tr><th>Country</th><th>Rate per 100,000</th><th>Walking around</th></tr></thead>
+  <tbody>
+    <tr><td>Italy</td><td class="num yes">about 6.5, lowest here</td><td>Very safe city centres, petty theft in tourist areas</td></tr>
+    <tr><td>Spain</td><td class="num yes">about 8.5</td><td>Barcelona pickpocketing is real, violent crime low</td></tr>
+    <tr><td>Romania</td><td class="num">about 10.5</td><td>Bucharest safer than its reputation</td></tr>
+    <tr><td>Switzerland</td><td class="num">about 10.7</td><td>Among the safest in Europe</td></tr>
+    <tr><td>Netherlands</td><td class="num">about 11.5</td><td>Very safe, calm on foot and by bike</td></tr>
+    <tr><td>Portugal</td><td class="num">about 11.9</td><td>Consistently rated very safe</td></tr>
+    <tr><td>Germany</td><td class="num">about 12.9</td><td>Berlin safe but grittier, Munich very safe</td></tr>
+    <tr><td>Norway</td><td class="num maybe">about 13.2, highest here</td><td>Extremely safe streets, but winter darkness is a real pressure</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="src"><a href="https://www.theglobaleconomy.com/rankings/suicides/Europe/">WHO data via TheGlobalEconomy</a>. <a href="https://www.oecd.org/en/publications/society-at-a-glance-2024_918d8db3-en/full-report/suicides_357d50c7.html">OECD Society at a Glance 2024</a>. Swiss caveat via <a href="https://en.wikipedia.org/wiki/Suicide_in_Switzerland">WHO summary</a>. High national happiness and a high suicide rate can coexist, so treat this as one indicator among several rather than a verdict on a country.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="n">5</span>City by city</h2>
+<p class="method"><strong>Method, and the Geneva correction.</strong> Aggregators diverge by two to three times for the same city. Lisbon ML pay is quoted at EUR 47,000 by Glassdoor and EUR 62,000 by ERI. Berlin runs from EUR 60,000 on Payscale to EUR 95,000 in the Ravio survey. We report ranges and prefer Levels.fyi medians and employer surveys over crowd averages. Rents are cross-checked against the portals locals actually use, Homegate and Comparis, Idealista, Pararius, Immobiliare.it, Finn.no. This is where the earlier Geneva figure was wrong: a realistic one-bedroom there is about CHF 1,850, not the inflated aggregator number.</p>
+
+<div class="cities">
+
+  <div class="city-card first">
+    <h3>Amsterdam <span class="tag y">Top overall</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> Levels.fyi median about EUR 100,700 nationally and EUR 100,900 for Amsterdam, Glassdoor average EUR 80,200, entry around EUR 60,500 to 73,700. Net 62 to 68%, more with the 30% ruling. Floor cleared with margin. Real ecosystem: Booking, Adyen, TomTom, Qualcomm, ABN AMRO.</li>
+      <li><strong>Rent:</strong> the worst market here. Free-sector one-bed EUR 1,700 to 2,400. The Netherlands is short about 410,000 homes as of early 2026, roughly 4.8% of stock and up from 400,000 a year earlier, and Amsterdam listings draw 100 to 450 applicants each. Budget time and stress, not just money.</li>
+      <li><strong>Anna:</strong> the best dual-market fit on the list. Abundant ESG, sustainability and impact roles, much of it English-workable, across consultancies, funds and NGOs. Internships and graduate schemes exist. Realistic first paid role in 3 to 9 months.</li>
+      <li><strong>Rest:</strong> no heat risk at all, grey and wet, world-class cycling, very safe.</li>
+    </ul>
+    <div class="src"><a href="https://www.levels.fyi/t/software-engineer/title/machine-learning-engineer/locations/greater-amsterdam-area">Levels.fyi</a>. <a href="https://www.glassdoor.com/Salaries/amsterdam-netherlands-machine-learning-engineer-salary-SRCH_IL.0,21_IM1112_KO22,47.htm">Glassdoor</a>. Shortage via <a href="https://www.nlcompass.com/guides/housing-crisis-netherlands-expats">NLCompass</a> and Capital Value.</div>
+  </div>
+
+  <div class="city-card first">
+    <h3>Barcelona <span class="tag y">Best for Anna</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> mid-market EUR 40,000 to 55,000 gross, Spanish net 74 to 78%, so roughly EUR 2,500 to 3,000 net at junior. The EUR 3,500 floor is tight and only clears at mid level or on a remote or foreign contract.</li>
+      <li><strong>Rent:</strong> one-bed about EUR 1,550 average. Eixample and Gràcia EUR 1,100 to 1,600, outer districts like Nou Barris and Sant Andreu EUR 800 to 1,100. Rent-controlled zones plus scarcity make finding a flat harder than the price suggests.</li>
+      <li><strong>Anna:</strong> native Spanish and Catalan unlock everything. Large ESG and sustainability scene across the Big Four, boutiques and corporates, with internships common.</li>
+      <li><strong>Rest:</strong> 40.7 °C record but coastal and under the limit, very sunny, fast social integration, walkable with superblocks and good metro.</li>
+    </ul>
+    <div class="src"><a href="https://investropa.com/blogs/news/barcelona-rents">Investropa with Idealista and Fotocasa</a>. <a href="https://www.levels.fyi/t/software-engineer/title/machine-learning-engineer/locations/spain">Levels.fyi</a>. <a href="https://www.glassdoor.com/Job/barcelona-sustainability-jobs-SRCH_IL.0,9_IC2547194_KO10,24.htm">Glassdoor sustainability listings</a>.</div>
+  </div>
+
+  <div class="city-card first">
+    <h3>Berlin <span class="tag y">Best for Sebi</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> AI and ML average EUR 95,000 in the 2026 Ravio and Handpicked Berlin survey of 4,627 responses, where AI and ML appeared as a new category and came in second-highest paid. Entry EUR 55,000 to 68,000. German tax is heavy at a 49.3% wedge, so net is 58 to 62%, but the floor still clears comfortably. Deepest ML ecosystem here.</li>
+      <li><strong>Rent:</strong> central one-bed EUR 1,100 to 1,500. Tight market but materially cheaper than Munich or Amsterdam.</li>
+      <li><strong>Anna:</strong> moderate. ESG and sustainability roles exist, English works in international NGOs and startups, German widens the field considerably. First paid role realistically 6 to 15 months.</li>
+      <li><strong>Rest:</strong> no heat risk, grey winters, excellent transit, strong cycling, and cheap sociability with real self-organised space, which matters for your community criterion.</li>
+    </ul>
+    <div class="src"><a href="https://ravio.com/blog/berlin-salary-trends-2026">Ravio and Handpicked Berlin 2026</a>. <a href="https://realting.com/news/rent-prices-in-germany-cities">Realting with GREIX</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Utrecht, Rotterdam, Groningen, Maastricht <span class="tag y">Good</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> the Dutch median of roughly EUR 90,000 to 100,000 applies, slightly lower than Amsterdam but so is rent. Utrecht and Rotterdam have real tech, Groningen and Maastricht are thinner and more remote-dependent.</li>
+      <li><strong>Rent:</strong> Utrecht EUR 28 to 32 per square metre, so a central one-bed is roughly EUR 1,300 to 1,700. Rotterdam cheaper but rising fastest. Groningen and Maastricht central one-bed EUR 900 to 1,400. Same national shortage applies.</li>
+      <li><strong>Anna:</strong> Utrecht has consultancies, government-adjacent bodies and universities. Rotterdam has port sustainability and Erasmus. Groningen is her alma mater, so network plus energy transition and planning research, though the paid market is small. Maastricht sits next to the Euregio and EU institutions.</li>
+      <li><strong>Rest:</strong> Utrecht and Groningen are among the most cycled cities on earth. Very safe, calm.</li>
+    </ul>
+    <div class="src"><a href="https://renthunter.nl/average-rent-prices-in-major-dutch-cities-a-2025-update/">RentHunter with Pararius and CBS</a>. <a href="https://www.levels.fyi/t/software-engineer/title/machine-learning-engineer/locations/netherlands">Levels.fyi</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Geneva <span class="tag m">Two body trap early on</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> median about CHF 115,000 per SwissDevJobs, Glassdoor about CHF 100,000, entry about CHF 90,000. Even after tax and health premiums this is far above the floor.</li>
+      <li><strong>Rent, corrected:</strong> one-bed about CHF 1,850 average, studios CHF 1,250 to 1,800, one-beds CHF 1,600 to 2,350. Deposit up to three months in a blocked account.</li>
+      <li><strong>Anna:</strong> the UN and NGO ecosystem, UNOG, UNHCR, ICRC, WHO, ITC, plus small private sector such as Covalence SA in Carouge. Entry realistically runs through unpaid or low-paid internships. Her French is a strong asset. First paid role 12 to 24 months, and competitive.</li>
+      <li><strong>Rest:</strong> no heat risk, excellent transit, very safe, but slow socially and expensive to do anything.</li>
+    </ul>
+    <div class="src"><a href="https://swissdevjobs.ch/salaries/Machine-Learning/all/all">SwissDevJobs</a>. <a href="https://www.glassdoor.com/Salaries/geneva-switzerland-machine-learning-engineer-salary-SRCH_IL.0,18_IM1141_KO19,44.htm">Glassdoor</a>. <a href="https://investropa.com/blogs/news/geneva-rents">Investropa with OCSTAT</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Munich <span class="tag m">Good, expensive</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> the highest German pay. AI engineer average EUR 94,713 on Levels.fyi, senior EUR 112,000 on Glassdoor, entry about EUR 67,569 per ERI. Corporate and industrial AI at BMW, Siemens, Google and startups.</li>
+      <li><strong>Rent:</strong> Germany's most expensive city, one-room EUR 1,500 to 2,100 including bills.</li>
+      <li><strong>Anna:</strong> corporate ESG at large firms, but German is effectively required and the city is less open socially than Berlin.</li>
+      <li><strong>Rest:</strong> 37.6 °C record, the coolest large city here, superb transit, very safe, great cycling.</li>
+    </ul>
+    <div class="src"><a href="https://www.turingcollege.com/blog/ai-engineer-salary-in-germany-2026">Turing College compiling Levels.fyi, Glassdoor and ERI</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Milan <span class="tag m">Mixed</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> ERI puts Milan at about EUR 78,540, Levels.fyi puts the Italian median far lower at about EUR 30,000. Realistic mid-market base is EUR 38,000 to 47,000, so the floor is tight unless senior. Lombardy is Italy's economic engine, with regional output well above the national average.</li>
+      <li><strong>Rent:</strong> about EUR 1,770 for a central one-bed, the priciest in Italy, and one of the worst rent-to-pay ratios on this list.</li>
+      <li><strong>Anna:</strong> Italy's strongest market for sustainability and ESG in finance, across banks, funds and consultancies. Italian needed for most roles, though her Romance base makes it fast to learn. Internships available.</li>
+      <li><strong>Rest:</strong> not extreme on paper but humid with tropical nights, grey foggy winters, lowest suicide rate in the set, good metro.</li>
+    </ul>
+    <div class="src"><a href="https://www.salaryexpert.com/salary/job/software-engineer-machine-learning/italy/milan">ERI</a>. <a href="https://www.spotahome.com/blog/milan-rental-market-2026/">Spotahome on the 2026 rental market</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Rome and Florence <span class="tag m">Mixed</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> Rome sits below Milan. ERI puts the Italian ML average around EUR 70,000, Glassdoor much lower. Florence has no ML-specific data, with a software engineer median around EUR 36,000. Both are tight and uncertain against the floor.</li>
+      <li><strong>Rent:</strong> Rome about EUR 1,250, Florence about EUR 1,520 for a central one-bed.</li>
+      <li><strong>Anna:</strong> Rome is genuinely relevant, with FAO, IFAD and WFP plus government and NGO impact work, though entry is internship-led as in Geneva. Florence is smaller, with UNESCO-adjacent heritage work and the European University Institute. Italian needed.</li>
+      <li><strong>Rest:</strong> Rome 41.8 °C, just under the limit. Florence's record could not be sourced cleanly and it sits in a valley heat trap, so verify. Rome transit is patchy, both are very walkable.</li>
+    </ul>
+    <div class="src"><a href="https://www.levels.fyi/t/software-engineer/locations/florence-ita">Levels.fyi</a>. <a href="https://www.numbeo.com/cost-of-living/region_prices_by_city?itemId=26&region=150">Numbeo European rent comparison</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Lisbon <span class="tag m">Lifestyle over pay</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> Glassdoor median about EUR 47,000, ERI average about EUR 62,000, senior about EUR 74,000. Portuguese net is 65 to 72%, so junior pay lands below the floor. Clears only at senior level or on a foreign contract.</li>
+      <li><strong>Rent:</strong> one-bed about EUR 1,250, range EUR 1,000 to 1,700, rooms from EUR 400. Strong upward pressure.</li>
+      <li><strong>Anna:</strong> some ESG and impact roles exist but the market is thinner than the Netherlands or Spain. Portuguese needed for most, and her Romance base means she would pick it up quickly.</li>
+      <li><strong>Rest:</strong> hit 44 °C in 2018, which breaches your limit once, though the city is normally moderate and interior Portugal is the real furnace at 46 to 47 °C. Portugal rates friendliest in Europe. Hilly, walkable, decent transit.</li>
+    </ul>
+    <div class="src"><a href="https://www.salaryexpert.com/salary/job/machine-learning-engineer/portugal/lisbon">ERI</a>. <a href="https://www.glassdoor.com/Salaries/lisbon-portugal-machine-learning-engineer-salary-SRCH_IL.0,15_IM1121_KO16,41.htm">Glassdoor</a>. <a href="https://investropa.com/blogs/news/lisbon-rents">Investropa with INE</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Porto <span class="tag m">Lifestyle over pay</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> ERI average about EUR 59,600, entry about EUR 41,600, senior about EUR 67,000. Junior net is below the floor.</li>
+      <li><strong>Rent:</strong> central one-bed roughly EUR 900 to 1,200, cheaper than Lisbon.</li>
+      <li><strong>Anna:</strong> thin for ESG and impact work, Portuguese needed, and a long realistic wait for a paid role.</li>
+      <li><strong>Rest:</strong> coastal north with a 39.9 °C record and no veto risk, but wetter and greyer than Lisbon, which counts against it on your own criterion. Compact, walkable, growing metro.</li>
+    </ul>
+    <div class="src"><a href="https://www.salaryexpert.com/salary/job/machine-learning-engineer/portugal/porto">ERI Porto</a>. <a href="https://www.severe-weather.eu/event-analysis/max-temperatures-ever-recorded-in-portugal/">IPMA via Severe Weather Europe</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Oslo <span class="tag m">Grey and dark</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> Levels.fyi median about EUR 67,000, Oslo software engineer median about EUR 74,000, ERI ML about EUR 92,000. Net 66 to 70%, so the floor clears.</li>
+      <li><strong>Rent:</strong> central one-bed roughly EUR 1,300 to 1,550. Verify on Finn.no. Deposit up to three months in a dedicated account.</li>
+      <li><strong>Anna:</strong> ESG and sustainability exist around energy transition, shipping and funds. English is widely used but Norwegian helps for consulting. Moderate to long wait.</li>
+      <li><strong>Rest:</strong> no heat risk, but grey dark winters count directly against your stated preference, and Norway has the highest suicide rate in this set. Extremely safe, excellent transit.</li>
+    </ul>
+    <div class="src"><a href="https://www.levels.fyi/t/software-engineer/locations/oslo-nor">Levels.fyi</a>. <a href="https://secure.macrotrends.net/global-metrics/countries/nor/norway/suicide-rate">WHO via Macrotrends</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Bucharest <span class="tag m">Cheap, wrong field</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> median about EUR 40,000 to 45,000 gross, high for the region, with historically favourable IT taxation. That is roughly EUR 2,000 to 2,600 net per month, so the floor clears only at the upper end, though local purchasing power is very high. Native language.</li>
+      <li><strong>Rent:</strong> cheapest here. Studios EUR 350 to 700, central one-bed EUR 500 to 800.</li>
+      <li><strong>Anna:</strong> the clearest wrong-market case. ESG and impact consulting is nascent and Romanian is needed.</li>
+      <li><strong>Rest:</strong> 42.2 °C record in 2000, the one non-Iberian heat concern. Improving transit, mixed walkability.</li>
+    </ul>
+    <div class="src"><a href="https://www.levels.fyi/en-gb/t/software-engineer/title/machine-learning-engineer/locations/bucharest-rou">Levels.fyi</a>. <a href="https://www.extremeweatherwatch.com/cities/bucharest/highest-temperatures">Extreme Weather Watch</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Andorra <span class="tag n">Quota, and no market for Anna</span></h3>
+    <ul>
+      <li><strong>Sebi:</strong> a tiny market, software engineer average about EUR 40,000. The real draw is the roughly 10% income tax cap and the high net retention that comes with it. Mostly remote, or adjacent to Barcelona and Toulouse.</li>
+      <li><strong>Right to work:</strong> 2026 quota of 800 with priority to Spanish, French and Portuguese nationals, on an employer-tied permit.</li>
+      <li><strong>Anna:</strong> her field is essentially absent, which fails the joint test regardless of anything else.</li>
+      <li><strong>Rest:</strong> cool mountain climate, no heat risk, very safe.</li>
+    </ul>
+    <div class="src"><a href="https://www.envoyglobal.com/news-alert/andorra-approves-reduced-2026-immigration-quota-of-800-permits/">Envoy Global on the 2026 quota</a>.</div>
+  </div>
+
+  <div class="city-card">
+    <h3>Liechtenstein <span class="tag n">Ruled out</span></h3>
+    <ul>
+      <li><strong>Right to work:</strong> 72 EEA residence permits a year with about half by twice-yearly lottery, and roughly 80% of jobs done by cross-border commuters from Switzerland and Austria. You cannot reliably plan to live here.</li>
+      <li><strong>Sebi:</strong> a handful of finance and industrial employers, realistically commuting in from across a border.</li>
+      <li><strong>Anna:</strong> effectively no market.</li>
+      <li><strong>Rest:</strong> dual citizenship not permitted, very safe, no heat risk.</li>
+    </ul>
+    <div class="src"><a href="https://visaatlas.org/visas/liechtenstein/residence-permit-b-employment">Visa Atlas</a>. <a href="https://iamhere.bakermckenzie.com/en/pages/liechtenstein">Baker McKenzie</a>.</div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="n">6</span>How long EUR 35,000 buys Anna</h2>
+<p class="lead">Months Anna can intern unpaid before savings run out, funded by Sebi's net pay against rent and two-person living costs.</p>
+<div class="scroll">
+<table>
+  <caption>Savings are drawn only when monthly costs exceed Sebi's net pay. Where his net covers everything, the EUR 35,000 stays intact as a buffer rather than a countdown. Planning bands, not precision.</caption>
+  <thead><tr><th>City</th><th>Sebi net per month</th><th>Rent</th><th>Living costs, two people</th><th>Monthly draw</th><th>Runway</th></tr></thead>
+  <tbody>
+    <tr><td>Bucharest</td><td class="num">about EUR 2,200</td><td class="num">EUR 650</td><td class="num">EUR 1,200</td><td class="yes">Covered</td><td class="num yes">30+ months</td></tr>
+    <tr><td>Porto</td><td class="num">about EUR 2,600</td><td class="num">EUR 1,050</td><td class="num">EUR 1,500</td><td class="num">EUR 0 to 200</td><td class="num">20 to 26</td></tr>
+    <tr><td>Lisbon</td><td class="num">about EUR 2,800</td><td class="num">EUR 1,250</td><td class="num">EUR 1,600</td><td class="num">EUR 50 to 300</td><td class="num">18 to 24</td></tr>
+    <tr><td>Barcelona</td><td class="num">about EUR 2,800</td><td class="num">EUR 1,550</td><td class="num">EUR 1,700</td><td class="num">about EUR 450</td><td class="num">15 to 20</td></tr>
+    <tr><td>Berlin</td><td class="num">about EUR 3,600</td><td class="num">EUR 1,300</td><td class="num">EUR 1,800</td><td class="num">small</td><td class="num">15 to 18</td></tr>
+    <tr><td>Utrecht, Rotterdam</td><td class="num">about EUR 4,000</td><td class="num">EUR 1,500</td><td class="num">EUR 1,900</td><td class="num">small</td><td class="num">14 to 22</td></tr>
+    <tr><td>Oslo</td><td class="num">about EUR 4,200</td><td class="num">EUR 1,450</td><td class="num">EUR 2,300</td><td class="num">small</td><td class="num">12 to 16</td></tr>
+    <tr><td>Milan</td><td class="num">about EUR 2,800</td><td class="num">EUR 1,770</td><td class="num">EUR 1,700</td><td class="num">about EUR 700</td><td class="num">12 to 16</td></tr>
+    <tr><td>Amsterdam</td><td class="num">about EUR 4,300</td><td class="num">EUR 2,100</td><td class="num">EUR 2,000</td><td class="num">EUR 0 to 400</td><td class="num">10 to 16</td></tr>
+    <tr><td>Munich</td><td class="num">about EUR 3,900</td><td class="num">EUR 1,800</td><td class="num">EUR 2,000</td><td class="num">about EUR 300</td><td class="num">10 to 14</td></tr>
+    <tr><td>Geneva</td><td class="num">about CHF 6,500</td><td class="num">CHF 1,850</td><td class="num">CHF 3,500 with health cover</td><td class="maybe">High absolute base</td><td class="num maybe">6 to 10</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>The counterintuitive result.</strong> High-salary Geneva has one of the <em>shortest</em> real runways, because its absolute cost base, rent plus roughly CHF 350 to 450 per person in health premiums plus food, is so high that the EUR 35,000 cushion evaporates quickly once converted and spent. Cheap Bucharest and Porto give the longest cushion, but they are the weakest markets for Anna, which defeats the purpose of buying her time in the first place. The cities that balance both are Berlin and Utrecht.</p>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="n">7</span>Urbanism, transport and having things to do</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th>City</th><th>Cycling</th><th>Transit and monthly pass</th><th>Self-organised social life</th></tr></thead>
+  <tbody>
+    <tr><td>Amsterdam, Utrecht, Groningen</td><td class="yes">Best in Europe</td><td>Good, about EUR 90 to 110</td><td>High, strong club and association culture</td></tr>
+    <tr><td>Barcelona</td><td>Growing, superblocks and Bicing</td><td>Excellent metro, about EUR 40 to 60</td><td class="yes">Very high, cheap outdoor sociability</td></tr>
+    <tr><td>Berlin</td><td>Strong</td><td>Excellent, EUR 49 Deutschlandticket</td><td class="yes">Very high, cheap space and an organising culture</td></tr>
+    <tr><td>Munich</td><td>Strong</td><td>Excellent, EUR 49 Deutschlandticket</td><td>Moderate and pricier</td></tr>
+    <tr><td>Lisbon, Porto</td><td class="maybe">Hilly, limited</td><td>Good, about EUR 30 to 40</td><td class="yes">High, warm street life</td></tr>
+    <tr><td>Milan, Rome, Florence</td><td>Milan improving, Rome weak</td><td>Milan good, Rome patchy, about EUR 35 to 39</td><td>High, strong piazza culture</td></tr>
+    <tr><td>Geneva</td><td>Moderate</td><td>Excellent, about CHF 70</td><td class="maybe">Lower, expensive and transient</td></tr>
+    <tr><td>Oslo</td><td>Growing</td><td>Excellent, about EUR 73</td><td class="maybe">Reserved, slow but deep once you are in</td></tr>
+    <tr><td>Bucharest</td><td class="maybe">Weak</td><td>Cheap metro, about EUR 15 to 20</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="n">8</span>Language, which cuts differently for each of you</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th>City</th><th>Sebi's field</th><th>Anna's field</th><th>What you already have</th></tr></thead>
+  <tbody>
+    <tr><td>Barcelona</td><td class="yes">English fine</td><td class="yes">Spanish and Catalan needed, Anna is native</td><td class="yes">The best language fit anywhere on this list</td></tr>
+    <tr><td>Amsterdam, Utrecht, Rotterdam</td><td class="yes">English fine</td><td class="yes">Much of it English-workable, Dutch a plus</td><td>English carries you, Dutch is learnable</td></tr>
+    <tr><td>Groningen, Maastricht</td><td class="yes">English fine</td><td class="maybe">Dutch matters more outside academia</td><td>Anna already knows Groningen</td></tr>
+    <tr><td>Geneva</td><td class="yes">English fine</td><td class="maybe">French strongly preferred, English works inside the UN</td><td class="yes">Anna's French is a major asset</td></tr>
+    <tr><td>Berlin</td><td class="yes">English fine</td><td class="maybe">German helps, English works in international bodies</td><td>Both would learn German</td></tr>
+    <tr><td>Munich</td><td class="yes">English fine</td><td class="no">German effectively required</td><td>Nothing transfers</td></tr>
+    <tr><td>Lisbon, Porto</td><td class="yes">English fine</td><td class="maybe">Portuguese needed</td><td class="yes">Romance base makes it fast</td></tr>
+    <tr><td>Milan, Rome, Florence</td><td class="yes">English mostly fine</td><td class="maybe">Italian needed</td><td class="yes">Romance base makes it fast</td></tr>
+    <tr><td>Bucharest</td><td class="yes">English fine</td><td class="maybe">Romanian needed</td><td class="yes">Sebi is native</td></tr>
+    <tr><td>Oslo</td><td class="yes">English fine</td><td class="maybe">Norwegian helps</td><td>English carries you early</td></tr>
+  </tbody>
+</table>
+</div>
+<p>The pattern is decisive and it is the single clearest finding in this document. ML and AI work is English-workable everywhere, so Sebi is mobile. Anna's field is language-gated everywhere except the Netherlands and the international institutions in Geneva and Rome. Barcelona is the only city where the languages she already speaks natively fully unlock her field, which is why it ranks third despite Sebi's pay being tight there.</p>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="n">9</span>What is still open</h2>
+
+<div class="legal">
+  <p><strong>Get professional advice on these two. Do not act on this document alone.</strong></p>
+  <p><strong>Sebi's Spanish citizenship.</strong> Confirm with a Spanish immigration lawyer whether to proceed now or wait for the pending Spain and Romania dual-nationality treaty, which is still unsigned. Do nothing that could jeopardise the Romanian EU passport, because it is the legal basis of this whole plan.</p>
+  <p><strong>Anna's Swiss route.</strong> Verify her parent's Swiss status with a Swiss consulate. The grandmother-only route closed on 31 December 2017 and is very likely unavailable.</p>
+</div>
+
+<div class="gaps">
+  <p><strong>Data gaps we did not paper over.</strong></p>
+  <p><strong>Florence's record high</strong> could not be cleanly sourced. As an inland Tuscan valley it may historically approach 42 to 43 °C, so check an official station record before treating it as heat-safe.</p>
+  <p><strong>Salary aggregators disagree by two to three times</strong> for Lisbon, Berlin, Milan, Bucharest and Andorra. Every salary figure here is a band. Confirm with an actual offer.</p>
+  <p><strong>Precise median rents for Oslo, Porto and Groningen</strong> are moderate confidence. Check Finn.no, Idealista or Imovirtual, and Pararius for your target neighbourhood.</p>
+  <p><strong>Net take-home</strong> uses country planning bands. Run a city-specific calculator, and check 30% ruling eligibility and actual Swiss health premium quotes, before signing anything.</p>
+</div>
+
+<h3>The decision, stated plainly</h3>
+<p><strong>If you optimise for both careers plus liveability, the Netherlands is the strongest single answer.</strong> It is the only place where Sebi clears his floor with margin, helped by the 30% ruling, and Anna can enter a thick English-workable ESG market within months. The one serious cost is housing, with a 410,000-home national shortage and 100 to 450 applicants per Amsterdam listing, so start the flat search before the job search and look hard at Utrecht, Rotterdam and Groningen to cut the competition.</p>
+<p><strong>If you optimise for Anna's fit, fast social integration and climate, Barcelona.</strong> Her native languages unlock the field, the ESG scene is large, the coast keeps you under the heat limit, and people are open. Accept that Sebi's pay is tight and the rent-controlled market is hard to crack. A remote or foreign-payer ML contract removes that constraint entirely and would make Barcelona the outright winner.</p>
+<p><strong>If Sebi's trajectory leads, Berlin.</strong> Deepest ML ecosystem, genuinely open socially in a way the rest of Germany is not, cheap sociability, no heat risk, and a moderate ESG market where Anna can start in English while learning German. It also has the best balance of runway and market quality in the model in section 6.</p>
+<p><strong>Reconsider before choosing:</strong> Geneva, which is rich but has the shortest real runway and unpaid entry for Anna. Bucharest, cheapest but the wrong field for Anna and a heat flag. Lisbon and Porto, friendly and lovely but Sebi's net pay fails at junior level. Andorra and Liechtenstein, both blocked on right to work.</p>
+
+<footer>
+  <p>Prepared 4 September 2026. Figures carry inline source links, and where sources conflict the more reliable one is named and the discrepancy shown. This is a research and planning document, not legal, tax or immigration advice. The citizenship, tax residency and permit questions above need a qualified professional in the relevant country.</p>
+</footer>
+
+</div>
+</body>
+</html>
