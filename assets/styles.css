@@ -303,3 +303,32 @@ body.editing #add-city{display:block}
   .toolbar,.rowtools,.tbl-actions,#add-city,.score-edit{display:none!important}
 }
 
+
+/* ---------- site tabs (decision document · jobs) ---------- */
+.sitetabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);margin:0 -22px;padding:10px 22px 0;background:var(--paper)}
+.sitetabs a{
+  display:inline-block;padding:9px 16px;font-size:13.5px;font-weight:600;color:var(--ink-soft);
+  text-decoration:none;border:1px solid transparent;border-bottom:none;border-radius:6px 6px 0 0;
+}
+.sitetabs a:hover{color:var(--accent)}
+.sitetabs a[aria-current="page"]{color:var(--ink);background:var(--panel);border-color:var(--rule);margin-bottom:-1px;padding-bottom:10px}
+
+/* ---------- jobs page ---------- */
+.jobs table{font-size:12.5px;min-width:1100px}
+.jobs th,.jobs td{padding:7px 9px;overflow-wrap:anywhere}
+.jobs th{white-space:normal}
+.jobs td.role{min-width:200px}
+.jobs td.role b{color:var(--ink)}
+.jobs td.note{min-width:240px;max-width:360px;color:var(--ink-soft)}
+.jobs td.dl{white-space:nowrap;font-variant-numeric:tabular-nums}
+.jobs td.st{min-width:110px}
+.jobs tr.urgent td.dl{color:var(--no);font-weight:700}
+.jobs tr.closed td{opacity:.7}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 22px;margin:16px 0}
+.checks div{background:var(--panel);border-radius:6px;padding:14px 16px;font-size:14px}
+.checks b{display:block;margin-bottom:4px}
+.tier{font-family:var(--mono);font-size:11px;font-weight:700;border-radius:3px;padding:1px 6px;white-space:nowrap}
+.tier.t1{background:var(--yes-bg);color:var(--yes)}
+.tier.t2{background:var(--accent-soft);color:var(--accent)}
+.tier.t3{background:var(--maybe-bg);color:var(--maybe)}
+@media print{.sitetabs{display:none}}
